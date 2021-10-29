@@ -1,0 +1,89 @@
+encoding: "utf-8"
+timezone: Europe/Warsaw
+lang: pl-PL
+lsi: true
+safe: false
+incremental: true
+
+markdown: kramdown
+markdown_ext: "md"
+
+repository: "zuralski-net/zuralski-net.github.io"
+github_username: "zuralski-net"
+author: "zuralski.net"
+
+title: "zuralski.net – Usługi IT, aplikacje internetowe, aplikacje webowe"
+description: ""
+
+copyright:
+  sinceYear: 2015
+
+experience:
+  sinceYear: 2007
+
+languages: ["en", "pl", "es", "de"]
+exclude_from_localizations: ["files", "assets", "resources"]
+
+plugins_dir         : _plugins
+layouts_dir         : _layouts
+data_dir            : _data
+includes_dir        : _includes
+
+webmaster_verifications:
+  google: ""
+  bing: ""
+#  alexa: 1234
+#  yandex: 1234
+#  baidu: 1234
+
+# Filtering Content
+show_drafts         : false
+limit_posts         : 0
+future              : false
+unpublished         : false
+
+defaults:
+  -
+    scope:
+      path:      "assets/css/*"
+    values:
+      sitemap:   false
+      permalink: pretty
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+    values:
+      layout:    "default"
+#      permalink: /:locale/:categories/:title:output_ext
+      author:   "zuralski.net"
+      excerpt_separator: "<!--more-->"
+  -   scope:
+        path: "./_pages/"
+        type: "pages"
+      values:
+        layout:    "default"
+
+exclude:
+  - ".github/"
+  - ".history/"
+  - "Gemfile"
+  - "Gemfile.lock"
+  - "TODO.md"
+  - "README.md"
+  - "Makefile"
+  - ".jekyll-cache"
+
+include:
+  - "_pages"
+
+plugins:
+  - jekyll-commonmark
+  - jekyll-include-cache
+  - jekyll-archives
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-time-to-read
+  - jekyll-redirect-from
+  - jekyll-last-modified-at
+  - jekyll-paginate
