@@ -4,7 +4,7 @@ USŁUGI IT – Outsourcing, aplikacja webowe
 
 Adres wykonywania działalności:<br />
 ul. Powstania Kościuszkowskiego 1/2<br />
-80-288 Gdańsk, pomorskie, PL<br />
+80-288 Gdańsk, pomorskie, Polska<br />
 
 NIP (VAT-ID): PL5851426606<br />
 REGON: 362536148<br />
