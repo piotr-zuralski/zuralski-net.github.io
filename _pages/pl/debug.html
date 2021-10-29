@@ -1,0 +1,70 @@
+---
+search: exclude
+sitemap: true
+published: true
+permalink: /_debug.html
+robots: noindex,follow
+---
+
+<p>static_files</p>
+<ul>
+    {% for file in site.static_files %}
+        <li><a href="{{ file.path }}?v={{ file.modified_time | date: '%s' }}"">{{ file.path }}?v={{ file.modified_time | date: '%s' }}</a></li>
+    {% endfor %}
+</ul>
+
+<p>pages</p>
+<ul>
+    {% for item in site.pages %}
+        <li><a href="{{ item.url }}" title="{{ item.title | default: item.url }}">{{ item.title | default: item.url }}</a></li>
+    {% endfor %}
+</ul>
+
+<p>posts</p>
+<ul>
+    {% for item in site.posts %}
+        <li><a href="{{ item.url }}" title="{{ item.title | default: item.url }}">{{ item.title | default: item.url }}</a></li>
+    {% endfor %}
+</ul>
+
+<p>
+    locale: {{ page.locale | jsonify }}<br/>
+    site: {{ site.locale | jsonify }}<br/>
+</p>
+
+<div>
+  <p>jekyll debug:</p>
+  <p>jekyll: <pre class="jekyll-debug" id="jekyll-debug-jekyll">{{ jekyll | jsonify | escape }}</pre></p>
+  <p>page: <pre class="jekyll-debug" id="jekyll-debug-page">{{ page | jsonify | escape }}</pre></p>
+  <p>layout: <pre class="jekyll-debug" id="jekyll-debug-layout">{{ layout | jsonify | escape }}</pre></p>
+  <p>paginator: <pre class="jekyll-debug" id="jekyll-debug-paginator">{{ paginator | jsonify | escape }}</pre></p>
+  <p>site: <pre class="jekyll-debug" id="jekyll-debug-site">{{ site | jsonify | escape }}</pre></p>
+  <p>content: <pre class="jekyll-debug" id="jekyll-debug-content">{{ content | jsonify | escape }}</pre></p>
+  <p>static_files: <pre class="jekyll-debug" id="jekyll-debug-static_files">{{ site.static_files | jsonify | escape }}</pre></p>
+</div>
+
+<div>
+  {% comment %} 
+  {% endcomment %}
+  <!-- -->
+  var experience: {{ site.experience.sinceYear }}<br>
+  {% assign site.currentYear = 'now'|date: '%Y' %}
+  {% assign site.experience = site.currentYear | minus: site.experience.sinceYear %}
+  experience: "{{ site.experience }}"
+</div>
+
+<script>
+    function jekyllDebugFormat() {
+      let list = document.getElementsByClassName('jekyll-debug');
+      let element;
+      Array.from(list).forEach(function(item) {
+          element = document.getElementById(item.id);
+          // Pretty-printed JSON (indented 4 spaces).
+          element.textContent = JSON.stringify(
+              JSON.parse(
+                  element.textContent
+              ), null, 4
+          );
+      });
+    }
+</script>

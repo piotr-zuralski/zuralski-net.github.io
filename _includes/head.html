@@ -1,0 +1,29 @@
+<!-- head.html -->
+<meta charset="{{ site.encoding|default:'UTF-8' }}">
+<meta http-equiv="Content-Type" content="text/html; charset={{ site.encoding|default:'UTF-8' }}">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="Last-Modified" content="{{ page.last_modified_at | default: site.time | date:'%a, %d %b %Y %H:%m:%S GMT%z' }}">
+<meta name="HandheldFriendly" content="true">
+<meta name="format-detection" content="telephone=no">
+{% seo %}
+<link rel="preconnect" href="https://cdn.polyfill.io" crossorigin />
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+<link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
+<link rel="preconnect" href="https://stats.g.doubleclick.net" crossorigin />
+<link rel="preconnect" href="https://browser-update.org" crossorigin />
+{% for file in site.static_files %}
+  {%- if file.extname == '.css' or file.extname == '.scss' -%}
+    <link rel="stylesheet" type="text/css" href="{{ file.path }}?v={{ file.modified_time | date: '%s' }}"/>
+  {% endif %}
+{%- endfor -%}
+<link rel="sitemap" type="application/xml" title="{{ site.title }} XML Sitemap" href="/sitemap.xml"/>
+<link rel="alternate" type="application/rss+xml" title="{{ site.title }} feed" href="/feed.xml"/>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  var pageLoadStart = Date.now(), pageLoadTime = null, pageLoadEnd = null, visitStart = pageLoadStart, visitTime = null, visitorType = 'standard', visitEnd = null;
+</script>
+{% if jekyll.environment == "production" %}
+  {% include stats-analytics.html %}
+{% endif %}
+<!-- /head.html -->

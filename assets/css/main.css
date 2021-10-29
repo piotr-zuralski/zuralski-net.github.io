@@ -1,0 +1,24 @@
+.container {
+    display: flex;
+}
+
+.container__sidebar {
+    margin-top: 150px;
+    width: 30%;
+}
+
+.container__main {
+    flex: 1;
+    overflow: auto;
+}
+
+/* */
+.list-unstyled, .list-inline {
+    padding-left: 0;
+    list-style: none;
+}
+
+.list-inline li {
+    display: inline-block;
+    margin-right: .5rem;
+}

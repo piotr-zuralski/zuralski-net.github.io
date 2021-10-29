@@ -1,0 +1,26 @@
+# # https://github.com/jekyll/jekyll-seo-tag/blob/v2.6.1/docs/advanced-usage.md#author-information
+
+"Piotr Żuralski":
+  name: Piotr Żuralski
+  first_name: Piotr
+  last_name: Żuralski
+  image: https://gravatar.com/avatar/9b06f3431adec60bef1540a479e3c49e
+  picture: https://gravatar.com/avatar/9b06f3431adec60bef1540a479e3c49e
+  web: https://piotr.zuralski.net/
+  github: piotr-zuralski
+  gitlab: piotr-zuralski
+  twitter: piotr_zuralski
+  social:
+    github: piotr-zuralski
+    gitlab: piotr-zuralski
+    twitter: piotr_zuralski
+
+"zuralski.net":
+  name: zuralski.net
+  type: Organization
+  "@type": Organization
+
+#   url: https://piotr.zuralski.net/
+#   google_plus:
+#   seo:
+#     name: Piotr Żuralski

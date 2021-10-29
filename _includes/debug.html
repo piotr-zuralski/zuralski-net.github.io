@@ -1,0 +1,37 @@
+<!-- debug.html -->
+{% if jekyll.environment == "development" %}
+<div class="hidden">
+  <p>jekyll debug:</p>
+  <p>jekyll: <pre class="jekyll-debug" id="jekyll-debug-jekyll">{{ jekyll | jsonify | escape }}</pre></p>
+  <p>page: <pre class="jekyll-debug" id="jekyll-debug-page">{{ page | jsonify | escape }}</pre></p>
+  <p>layout: <pre class="jekyll-debug" id="jekyll-debug-layout">{{ layout | jsonify | escape }}</pre></p>
+  <p>paginator: <pre class="jekyll-debug" id="jekyll-debug-paginator">{{ paginator | jsonify | escape }}</pre></p>
+  <p>site: <pre class="jekyll-debug" id="jekyll-debug-site">{{ site | jsonify | escape }}</pre></p>
+  <p>content: <pre class="jekyll-debug" id="jekyll-debug-content">{{ content | jsonify | escape }}</pre></p>
+</div>
+
+<div>
+  var experience: {{ site.experience.sinceYear }} {{ experience }}
+  {% assign site.currentYear = 'now'|date: '%Y' %}
+  {{ site.experience | jsonify | escape }}
+  {% assign site.experience = site.currentYear | minus: site.experience.sinceYear %}
+  experience: "{{ site.experience }}"
+</div>
+
+<script>
+    function jekyllDebugFormat() {
+      let list = document.getElementsByClassName('jekyll-debug');
+      let element;
+      Array.from(list).forEach(function(item) {
+          element = document.getElementById(item.id);
+          // Pretty-printed JSON (indented 4 spaces).
+          element.textContent = JSON.stringify(
+              JSON.parse(
+                  element.textContent
+              ), null, 4
+          );
+      });
+    }
+</script>
+{% endif %}
+<!-- /debug.html -->

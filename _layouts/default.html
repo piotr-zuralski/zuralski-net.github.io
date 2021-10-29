@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="{{ site.lang | default:'en-GB' }}" dir="ltr">
+  <head>
+      {% include head.html %}
+  </head>
+  <body>
+      {% include cookie-consent.html %}
+      
+      <div class="container">
+        {% include main_content.html %}
+        {% include sidebar.html %}
+      </div>
+
+      <div class="container">
+        {% include footer.html %}
+      </div>
+      {% include script_footer.html %}
+  </body>
+</html>

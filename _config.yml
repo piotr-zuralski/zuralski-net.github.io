@@ -1,6 +1,7 @@
 encoding: "utf-8"
 timezone: Europe/Warsaw
 lang: pl-PL
+locale: pl
 lsi: true
 safe: false
 incremental: true
@@ -8,12 +9,15 @@ incremental: true
 markdown: kramdown
 markdown_ext: "md"
 
+title: "zuralski.net"
+description: "Usługi IT, aplikacje internetowe, aplikacje webowe"
+
+github:
+  private: true
+show_downloads: false
 repository: "zuralski-net/zuralski-net.github.io"
 github_username: "zuralski-net"
 author: "zuralski.net"
-
-title: "zuralski.net – Usługi IT, aplikacje internetowe, aplikacje webowe"
-description: ""
 
 copyright:
   sinceYear: 2015
@@ -29,9 +33,14 @@ layouts_dir         : _layouts
 data_dir            : _data
 includes_dir        : _includes
 
+# https://github.com/pages-themes/primer
+# remote_theme: pages-themes/primer@v0.6.0
+
+google_analytics: "UA-2579235-12"
+
 webmaster_verifications:
-  google: ""
-  bing: ""
+#  google: ""
+  bing: "057036BF9DB13D64C6CA4552C61AC17A"
 #  alexa: 1234
 #  yandex: 1234
 #  baidu: 1234
@@ -47,21 +56,46 @@ defaults:
     scope:
       path:      "assets/css/*"
     values:
-      sitemap:   false
-      permalink: pretty
+      layout: null
+      search: exclude
+      sitemap: false
+      stylesheet: true
+  -
+    scope:
+      path:      "assets/scss/*"
+    values:
+      layout: null
+      search: exclude
+      sitemap: false
+      stylesheet: true
+  -
+    scope:
+      path:      "assets/js/*"
+    values:
+      layout: null
+      search: exclude
+      sitemap: false
+      javascript: true
   -
     scope:
       path: "" # an empty string here means all files in the project
     values:
-      layout:    "default"
 #      permalink: /:locale/:categories/:title:output_ext
-      author:   "zuralski.net"
-      excerpt_separator: "<!--more-->"
+      layout:             "default"
+      author:             "zuralski.net"
+      excerpt_separator:  "<!--more-->"
   -   scope:
         path: "./_pages/"
         type: "pages"
       values:
-        layout:    "default"
+        layout:           "default"
+  -   scope:
+        path: "./_pages/pl/"
+        type: "pages"
+      values:
+        layout:           "default"
+        lang:             pl-PL
+        locale:           pl
 
 exclude:
   - ".github/"
@@ -72,6 +106,9 @@ exclude:
   - "README.md"
   - "Makefile"
   - ".jekyll-cache"
+  - ".git"
+  - ".svn"
+  - ".gitkeep"
 
 include:
   - "_pages"
@@ -87,3 +124,4 @@ plugins:
   - jekyll-redirect-from
   - jekyll-last-modified-at
   - jekyll-paginate
+  # - jekyll-remote-theme
