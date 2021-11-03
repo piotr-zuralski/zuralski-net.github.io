@@ -13,6 +13,20 @@ robots: noindex,follow
     {% endfor %}
 </ul>
 
+<p>static_files stylesheet</p>
+<ul>
+    {% for file in site.static_files | where: "stylesheet", true %}
+        <li><a href="{{ file.path }}?v={{ file.modified_time | date: '%s' }}"">{{ file.path }}?v={{ file.modified_time | date: '%s' }}</a></li>
+    {% endfor %}
+</ul>
+
+<p>static_files javascript</p>
+<ul>
+    {% for file in site.static_files | where: "javascript", true %}
+        <li><a href="{{ file.path }}?v={{ file.modified_time | date: '%s' }}"">{{ file.path }}?v={{ file.modified_time | date: '%s' }}</a></li>
+    {% endfor %}
+</ul>
+
 <p>pages</p>
 <ul>
     {% for item in site.pages %}
