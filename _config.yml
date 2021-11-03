@@ -27,6 +27,8 @@ copyright:
 
 experience:
   sinceYear: 2007
+  currentYear: 2020
+  experience: 13
 
 languages: ["en", "pl", "es", "de"]
 exclude_from_localizations: ["files", "assets", "resources"]
