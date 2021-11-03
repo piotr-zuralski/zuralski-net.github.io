@@ -60,10 +60,12 @@ robots: noindex,follow
 <pre>
     {% comment %}comment{% endcomment %}<br/>
     <!-- html comment --><br/>
-    experience: "{{ site.experience }}"<br/>
-    var experience: {{ site.experience.sinceYear }}<br/>
+    site.experience: "{{ site.experience }}"<br/>
+    site.experience.sinceYear: "{{ site.experience.sinceYear }}"<br/>
     {% assign site.currentYear = 'now'|date: '%Y' %}
+    site.currentYear: "{{ site.currentYear }}"<br/>
     {% assign site.experience.experience = site.currentYear | minus: site.experience.sinceYear %}
+    site.experience.experience: "{{ site.experience.experience }}"<br/>
     {% assign experience = site.experience.experience %}
     experience: "{{ experience }}"<br/>
     site.experience: "{{ site.experience }}"<br/>
