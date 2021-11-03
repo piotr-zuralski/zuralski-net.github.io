@@ -57,7 +57,15 @@ unpublished         : false
 defaults:
   -
     scope:
-      path:       "assets/(css|scss)/*"
+      path:       "assets/css/*"
+    values:
+      layout:     null
+      search:     exclude
+      sitemap:    false
+      stylesheet: true
+  -
+    scope:
+      path:       "assets/scss/*"
     values:
       layout:     null
       search:     exclude
