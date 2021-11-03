@@ -17,7 +17,9 @@
     <link rel="stylesheet" type="text/css" href="{{ file.path }}?v={{ file.modified_time | date: '%s' }}"/>
   {% endif %}
 {%- endfor -%}
-<link rel="sitemap" type="application/xml" title="{{ site.title }} XML Sitemap" href="/sitemap.xml"/>
+<link rel="manifest" href="/manifest.json">
+<!-- <link rel="shortcut icon" href="/favicon.ico"> -->
+<link rel="sitemap" type="application/xml" href="/sitemap.xml"/>
 <link rel="alternate" type="application/rss+xml" title="{{ site.title }} feed" href="/feed.xml"/>
 <script>
   window.dataLayer = window.dataLayer || [];
