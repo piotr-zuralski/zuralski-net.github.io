@@ -2,9 +2,9 @@
 published: true
 permalink: /pl/zasady/polityka-prywatnosci.html
 redirect_from:
-  - /zasady
-  - /pl/zasady
-  - /zasady/polityka-prywatnosci
+  - /zasady/
+  - /pl/zasady/
+  - /zasady/polityka-prywatnosci/
 date: 2015-10-05 10:35
 last_modified_at: 2021-10-30 10:35
 ---

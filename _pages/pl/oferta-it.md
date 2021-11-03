@@ -2,18 +2,12 @@
 published: true
 permalink: /pl/oferta/it.html
 redirect_from:
-  - /oferta
   - /oferta/
-  - /oferta/finanse
   - /oferta/finanse/
-  - /oferta/it
   - /oferta/it/
   - /pl/oferta/it/
-  - /oferta/nieruchomosci
   - /oferta/nieruchomosci/
-  - /pl/oferta/nieruchomosci
   - /pl/oferta/nieruchomosci/
-  - /pl/oferta
   - /pl/oferta/
 date: 2015-10-05 10:35
 last_modified_at: 2021-10-30 10:35

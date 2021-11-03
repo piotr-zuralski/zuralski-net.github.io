@@ -2,7 +2,7 @@
 published: true
 permalink: /pl/mapa-strony.html
 redirect_from:
-  - /mapa-strony
+  - /mapa-strony/
 date: 2015-10-05 10:35
 last_modified_at: 2021-10-30 10:35
 ---

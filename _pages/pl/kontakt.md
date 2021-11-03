@@ -2,7 +2,7 @@
 published: true
 permalink: /pl/kontakt.html
 redirect_from:
-  - /kontakt
+  - /kontakt/
 date: 2015-10-05 10:35
 last_modified_at: 2021-10-30 10:35
 ---
