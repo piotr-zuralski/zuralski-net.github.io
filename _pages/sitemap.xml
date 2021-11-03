@@ -3,6 +3,7 @@ layout: null
 search: exclude
 sitemap: false
 permalink: /sitemap.xml
+xsl: true
 ---
 
 <?xml version="1.0" encoding="{{ site.encoding|default:'UTF-8' }}"?>
