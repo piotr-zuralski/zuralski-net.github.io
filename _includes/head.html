@@ -24,6 +24,8 @@
 <link rel="alternate" type="application/rss+xml" title="{{ site.title }} feed" href="/feed.xml"/>
 <script>
   window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
   var pageLoadStart = Date.now(), pageLoadTime = null, pageLoadEnd = null, visitStart = pageLoadStart, visitTime = null, visitorType = 'standard', visitEnd = null;
 </script>
 {% if jekyll.environment == "production" %}

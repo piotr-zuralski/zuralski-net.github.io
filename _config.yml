@@ -1,8 +1,9 @@
 encoding: "utf-8"
 timezone: Europe/Warsaw
-lang: pl-PL
-locale: pl
-lsi: true
+lang:     pl-PL
+locale:   pl
+lsi:      true
+
 safe: false
 incremental: true
 
@@ -18,6 +19,7 @@ show_downloads: false
 repository: "zuralski-net/zuralski-net.github.io"
 github_username: "zuralski-net"
 author: "zuralski.net"
+excerpt_separator: "<!--more-->"
 
 copyright:
   sinceYear: 2015
@@ -54,48 +56,48 @@ unpublished         : false
 defaults:
   -
     scope:
-      path:      "assets/css/*"
+      path:       "assets/(css|scss)/*"
     values:
-      layout: null
-      search: exclude
-      sitemap: false
+      layout:     null
+      search:     exclude
+      sitemap:    false
       stylesheet: true
   -
     scope:
-      path:      "assets/scss/*"
+      path:       "assets/js/*"
     values:
-      layout: null
-      search: exclude
-      sitemap: false
-      stylesheet: true
-  -
-    scope:
-      path:      "assets/js/*"
-    values:
-      layout: null
-      search: exclude
-      sitemap: false
+      layout:     null
+      search:     exclude
+      sitemap:    false
       javascript: true
   -
     scope:
-      path: "" # an empty string here means all files in the project
+      path:       "" # an empty string here means all files in the project
     values:
 #      permalink: /:locale/:categories/:title:output_ext
-      layout:             "default"
-      author:             "zuralski.net"
-      excerpt_separator:  "<!--more-->"
+      layout:     "default"
+      author:     "zuralski.net"
   -   scope:
-        path: "./_pages/"
-        type: "pages"
+        path:     "./_pages/"
+        type:     "pages"
       values:
-        layout:           "default"
+        layout:   "default"
   -   scope:
-        path: "./_pages/pl/"
-        type: "pages"
+        path:     "./_pages/pl/"
+        type:     "pages"
       values:
-        layout:           "default"
-        lang:             pl-PL
-        locale:           pl
+        layout:   "default"
+        timezone: Europe/Warsaw
+        lang:     pl-PL
+        locale:   pl
+  -   scope:
+        path:     "./_pages/en/"
+        type:     "pages"
+      values:
+        layout:   "default"
+        timezone: Europe/London
+        lang:     en-GB
+        locale:   en
 
 exclude:
   - ".github/"

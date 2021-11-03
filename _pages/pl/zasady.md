@@ -9,5 +9,4 @@ last_modified_at: 2021-10-30 10:35
 
 # Zasady
 
-
 {% include _autolink.md %}
