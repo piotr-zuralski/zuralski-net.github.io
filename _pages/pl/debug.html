@@ -47,7 +47,7 @@ robots: noindex,follow
 </p>
 
 <div>
-  <p>jekyll debug: <a onclick="jekyllDebugFormat();">format jekyll</a></p>
+  <p>jekyll debug: <a href="javascript:void();" onclick="jekyllDebugFormat();">format jekyll</a></p>
   <p>jekyll: <pre class="jekyll-debug" id="jekyll-debug-jekyll">{{ jekyll | jsonify | escape }}</pre></p>
   <p>page: <pre class="jekyll-debug" id="jekyll-debug-page">{{ page | jsonify | escape }}</pre></p>
   <p>layout: <pre class="jekyll-debug" id="jekyll-debug-layout">{{ layout | jsonify | escape }}</pre></p>
@@ -62,13 +62,13 @@ robots: noindex,follow
     <!-- html comment --><br/>
     site.experience: "{{ site.experience }}"<br/>
     site.experience.sinceYear: "{{ site.experience.sinceYear }}"<br/>
-    {% assign currentYear = 'now'|date: '%Y' %}
+    {%- assign currentYear = 'now'|date: '%Y' -%}
     currentYear: "{{ currentYear }}"<br/>
-    {% assign experience = currentYear | minus: site.experience.sinceYear %}
+    {%- assign experience = currentYear | minus: site.experience.sinceYear -%}
     experience: "{{ experience }}"<br/>
-
-    {% assign site.experience.currentYear = currentYear %}
-    {% assign site.experience.experience = experience %}
+    ---<br/>
+    {%- assign site.experience.currentYear = currentYear -%}
+    {%- assign site.experience.experience = experience -%}
     site.experience: "{{ site.experience }}"<br/>
 </pre>
 
