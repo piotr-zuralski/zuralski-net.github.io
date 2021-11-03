@@ -48,28 +48,28 @@ robots: noindex,follow
 
 <div>
   <p>jekyll debug: <a href="javascript:void();" onclick="jekyllDebugFormat();">format jekyll</a></p>
-  <p>jekyll: <pre class="jekyll-debug" id="jekyll-debug-jekyll">{{ jekyll | jsonify | escape }}</pre></p>
+  <p>content: <pre class="jekyll-debug" id="jekyll-debug-content">{{ content | jsonify | escape }}</pre></p>
   <p>page: <pre class="jekyll-debug" id="jekyll-debug-page">{{ page | jsonify | escape }}</pre></p>
+  <p>jekyll: <pre class="jekyll-debug" id="jekyll-debug-jekyll">{{ jekyll | jsonify | escape }}</pre></p>
   <p>layout: <pre class="jekyll-debug" id="jekyll-debug-layout">{{ layout | jsonify | escape }}</pre></p>
   <p>paginator: <pre class="jekyll-debug" id="jekyll-debug-paginator">{{ paginator | jsonify | escape }}</pre></p>
   <p>site: <pre class="jekyll-debug" id="jekyll-debug-site">{{ site | jsonify | escape }}</pre></p>
-  <p>content: <pre class="jekyll-debug" id="jekyll-debug-content">{{ content | jsonify | escape }}</pre></p>
   <p>static_files: <pre class="jekyll-debug" id="jekyll-debug-static_files">{{ site.static_files | jsonify | escape }}</pre></p>
 </div>
 
 <pre>
-    {% comment %}comment{% endcomment %}<br/>
-    <!-- html comment --><br/>
-    site.experience: "{{ site.experience }}"<br/>
-    site.experience.sinceYear: "{{ site.experience.sinceYear }}"<br/>
-    {%- assign currentYear = 'now'|date: '%Y' -%}
-    currentYear: "{{ currentYear }}"<br/>
-    {%- assign experience = currentYear | minus: site.experience.sinceYear -%}
-    experience: "{{ experience }}"<br/>
-    ---<br/>
-    {%- assign site.experience.currentYear = currentYear -%}
-    {%- assign site.experience.experience = experience -%}
-    site.experience: "{{ site.experience }}"<br/>
+{% comment %}comment{% endcomment %}<br/>
+<!-- html comment --><br/>
+site.experience: "{{ site.experience }}"<br/>
+site.experience.sinceYear: "{{ site.experience.sinceYear }}"<br/>
+{%- assign currentYear = 'now'|date: '%Y' -%}
+currentYear: "{{ currentYear }}"<br/>
+{%- assign experience = currentYear | minus: site.experience.sinceYear -%}
+experience: "{{ experience }}"<br/>
+---<br/>
+{%- assign site.experience.currentYear = currentYear -%}
+{%- assign site.experience.experience = experience -%}
+site.experience: "{{ site.experience }}"<br/>
 </pre>
 
 <script>
