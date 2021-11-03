@@ -65,7 +65,8 @@ robots: noindex,follow
     {% assign site.currentYear = 'now'|date: '%Y' %}
     {% assign site.experience.experience = site.currentYear | minus: site.experience.sinceYear %}
     {% assign experience = site.experience.experience %}
-    experience: "{{ site.experience }}"<br/>
+    experience: "{{ experience }}"<br/>
+    site.experience: "{{ site.experience }}"<br/>
 </pre>
 
 <script>
