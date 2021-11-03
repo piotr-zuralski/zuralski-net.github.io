@@ -62,9 +62,9 @@ robots: noindex,follow
     <!-- html comment --><br/>
     site.experience: "{{ site.experience }}"<br/>
     site.experience.sinceYear: "{{ site.experience.sinceYear }}"<br/>
-    {% assign site.currentYear = 'now'|date: '%Y' %}
-    site.currentYear: "{{ site.currentYear }}"<br/>
-    {% assign site.experience.experience = site.currentYear | minus: site.experience.sinceYear %}
+    {% assign currentYear = 'now'|date: '%Y' %}
+    currentYear: "{{ currentYear }}"<br/>
+    {% assign site.experience.experience = currentYear | minus: site.experience.sinceYear %}
     site.experience.experience: "{{ site.experience.experience }}"<br/>
     {% assign experience = site.experience.experience %}
     experience: "{{ experience }}"<br/>
