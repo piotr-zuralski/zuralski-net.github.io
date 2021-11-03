@@ -47,6 +47,7 @@ robots: noindex,follow
   {% comment %} 
   {% endcomment %}
   <!-- -->
+  experience: "{{ site.experience }}"
   var experience: {{ site.experience.sinceYear }}<br>
   {% assign site.currentYear = 'now'|date: '%Y' %}
   {% assign site.experience = site.currentYear | minus: site.experience.sinceYear %}
