@@ -10,6 +10,7 @@ incremental: true
 markdown: kramdown
 markdown_ext: "md"
 
+url: https://zuralski.net
 title: "zuralski.net"
 description: "Usługi IT, aplikacje internetowe, aplikacje webowe"
 
