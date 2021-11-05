@@ -1,4 +1,6 @@
 <!-- footer.html -->
+{%- assign locale = page.locale | default: site.locale -%}
+{%- assign locale_page = '/' | append: locale | append: '/' -%}
 <footer class="footer page-footer">
     <!--
       var experience: {{ site.experience.sinceYear }}
@@ -7,8 +9,8 @@
       experience: "{{ currentYear | minus: site.experience.sinceYear }}"
     -->
     <span class="site-footer-copyright text-center">
-        Copyright &copy; {{ site.copyright.sinceYear }}&mdash;<span id="current-year">{{ site.time|date: '%Y' }}</span>
-        <a href="{{ site.url }}" title="{{ site.name | default: site.title }}">{{ site.name | default: site.title }}</a>.
+        Copyright &copy; {{ site.copyright.sinceYear }}&mdash;<span id="current-year">{{ site.time | date: '%Y' }}</span>
+        <a href="{{ locale_page | absolute_url }}" title="{{ site.name | default: site.title }}">{{ site.name | default: site.title }}</a>.
     </span>
     
     
