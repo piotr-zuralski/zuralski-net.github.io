@@ -1,8 +1,8 @@
 encoding: "utf-8"
 timezone: Europe/Warsaw
-lang:     pl-PL
-locale:   pl
-lsi:      true
+lang: pl-PL
+locale: pl
+lsi: true
 
 safe: false
 incremental: true
@@ -33,10 +33,10 @@ experience:
 languages: ["en", "pl", "es", "de"]
 exclude_from_localizations: ["files", "assets", "resources"]
 
-plugins_dir         : _plugins
-layouts_dir         : _layouts
-data_dir            : _data
-includes_dir        : _includes
+plugins_dir: _plugins
+layouts_dir: _layouts
+data_dir: _data
+includes_dir: _includes
 
 # https://github.com/pages-themes/primer
 # remote_theme: pages-themes/primer@v0.6.0
@@ -44,71 +44,67 @@ includes_dir        : _includes
 google_analytics: "UA-2579235-12"
 
 webmaster_verifications:
-#  google: ""
+  #  google: ""
   bing: "057036BF9DB13D64C6CA4552C61AC17A"
 #  alexa: 1234
 #  yandex: 1234
 #  baidu: 1234
 
 # Filtering Content
-show_drafts         : false
-limit_posts         : 0
-future              : false
-unpublished         : false
+show_drafts: false
+limit_posts: 0
+future: false
+unpublished: false
 
 defaults:
-  -
-    scope:
-      path:       "assets/css/*"
+  - scope:
+      path: "assets/css/*"
     values:
-      layout:     null
-      search:     exclude
-      sitemap:    false
+      layout: null
+      search: exclude
+      sitemap: false
       stylesheet: true
-  -
-    scope:
-      path:       "assets/scss/*"
+  - scope:
+      path: "assets/scss/*"
     values:
-      layout:     null
-      search:     exclude
-      sitemap:    false
+      layout: null
+      search: exclude
+      sitemap: false
       stylesheet: true
-  -
-    scope:
-      path:       "assets/js/*"
+  - scope:
+      path: "assets/js/*"
     values:
-      layout:     null
-      search:     exclude
-      sitemap:    false
+      layout: null
+      search: exclude
+      sitemap: false
       javascript: true
-  -
-    scope:
-      path:       "" # an empty string here means all files in the project
+  - scope:
+      path: "" # an empty string here means all files in the project
     values:
-#      permalink: /:locale/:categories/:title:output_ext
-      layout:     "default"
-      author:     "zuralski.net"
-  -   scope:
-        path:     "./_pages/"
-        type:     "pages"
-      values:
-        layout:   "default"
-  -   scope:
-        path:     "./_pages/pl/"
-        type:     "pages"
-      values:
-        layout:   "default"
-        timezone: Europe/Warsaw
-        lang:     pl-PL
-        locale:   pl
-  -   scope:
-        path:     "./_pages/en/"
-        type:     "pages"
-      values:
-        layout:   "default"
-        timezone: Europe/London
-        lang:     en-GB
-        locale:   en
+      #      permalink: /:locale/:categories/:title:output_ext
+      layout: "default"
+      author: "zuralski.net"
+  - scope:
+      path: "./_pages/"
+      type: "pages"
+    values:
+      layout: "default"
+  - scope:
+      path: "./_pages/pl/"
+      type: "pages"
+    values:
+      layout: "default"
+      timezone: Europe/Warsaw
+      lang: pl-PL
+      locale: pl
+  - scope:
+      path: "./_pages/en/"
+      type: "pages"
+    values:
+      layout: "default"
+      timezone: Europe/London
+      lang: en-GB
+      locale: en
 
 exclude:
   - ".github/"
