@@ -1,7 +1,7 @@
 <!-- footer.html -->
 {%- assign locale = page.locale | default: site.locale -%}
 {%- assign locale_page = '/' | append: locale | append: '/' -%}
-<footer class="footer page-footer">
+<footer class="footer page-footer border-top border-gray-light">
     <!--
       var experience: {{ site.experience.sinceYear }}
       {% assign currentYear = 'now'|date: '%Y' %}
@@ -25,5 +25,11 @@
             </ul>
         </span>
     {% endif %}
+
+    {% if site.github.private != true and site.github.license %}
+      <div class="text-right text-gray mt-5 pt-3">
+          This site is open source. {% github_edit_link "Improve this page" %}.
+      </div>
+  {% endif %}
 </footer>
 <!-- /footer.html -->
