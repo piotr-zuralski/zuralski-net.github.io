@@ -11,7 +11,7 @@ last_modified_at: 2021-10-30 10:35
 
 1. [Strona główna](/pl/)
 1. [Oferta](/pl/oferta/)
-    1. [Oferta finanse](/pl/oferta/finanse)
+    1. [Oferta finanse](/pl/oferta/finanse/)
     1. [Oferta IT](/pl/oferta/it.html)
     1. [Oferta nieruchomości](/pl/oferta/nieruchomosci)
 1. [Zasady](/pl/zasady)
