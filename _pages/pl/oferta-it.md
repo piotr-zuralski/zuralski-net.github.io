@@ -8,6 +8,7 @@ redirect_from:
   - /pl/oferta/it/
   - /oferta/nieruchomosci/
   - /pl/oferta/nieruchomosci/
+  - /pl/oferta/finanse/
   - /pl/oferta/
 date: 2015-10-05 10:35
 last_modified_at: 2021-10-30 10:35
