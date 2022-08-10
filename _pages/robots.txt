@@ -16,3 +16,6 @@ Disallow: /comments/feed/
 Disallow: /feed/
 Disallow: /*/feed/
 Disallow: /*/comments/feed/
+
+User-agent: Mozilla/5.0 (compatible; SiteAuditBot-SA/0.97; +http://www.semrush.com/bot.html)
+Allow: *
