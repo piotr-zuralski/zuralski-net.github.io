@@ -5,7 +5,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset={{ site.encoding|default:'UTF-8' }}">
         <meta name="Cache-Control" content="public, max-age=900, s-maxage=1800, stale-while-revalidate, proxy-revalidate, must-revalidate">
         <meta http-equiv="refresh" content="0; url={{ page.redirect.to }}">
-        <meta name="robots" content="noindex,follow">
+        <meta name="robots" content="follow,noarchive">
+        <meta name="googlebot" content="noindex,follow,noarchive">
+        <meta name="bingbot" content="noindex,follow,noarchive">
         <title>Redirecting&hellip;</title>
         <link rel="canonical" href="{{ page.redirect.to }}">
     </head>
