@@ -1,4 +1,4 @@
-name: pages-build-deployment
+name: pull-request
 
 on:
   pull_request:
@@ -27,7 +27,7 @@ permissions:
   id-token: write
 
 jobs:
-  build:
+  build_pr:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -51,7 +51,6 @@ jobs:
         if: ${{ github.actor != 'nektos/act' }}
         id: pages
         uses: actions/configure-pages@v1
-      - run: env
       - name: build jekyll
         run: bundle exec rake
         env:
