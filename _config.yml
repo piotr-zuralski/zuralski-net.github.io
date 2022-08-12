@@ -1,4 +1,4 @@
-encoding: "utf-8"
+encoding: "UTF-8"
 timezone: Europe/Warsaw
 lang: pl-PL
 locale: pl
@@ -10,17 +10,18 @@ incremental: true
 markdown: kramdown
 markdown_ext: "md"
 
-url: https://zuralski.net
 title: "zuralski.net"
 description: "Usługi IT, aplikacje internetowe, aplikacje webowe"
+url: https://zuralski.net
 
 github:
   private: true
-show_downloads: false
 repository: "zuralski-net/zuralski-net.github.io"
 github_username: "zuralski-net"
 author: "zuralski.net"
+
 excerpt_separator: "<!--more-->"
+show_downloads: false
 
 copyright:
   sinceYear: 2015
@@ -127,11 +128,11 @@ plugins:
   - jekyll-include-cache
   - jekyll-archives
   - jekyll-sitemap
-#  - jekyll-feed
   - jekyll-seo-tag
   - jekyll-redirect-from
   - jekyll-last-modified-at
   - jekyll-assets
+#  - jekyll-feed
 #  - jekyll-paginate
 #  - jekyll-remote-theme
 #  - jekyll-time-to-read
@@ -140,4 +141,10 @@ sass:
   style: compressed
 
 assets:
-  cache: .jekyll-cache/assets/
+  cache: 
+    enabled: true
+    path: .jekyll-cache/assets/
+  compression: true
+  defaults:
+    integrity:
+      {css,img,js}: true
