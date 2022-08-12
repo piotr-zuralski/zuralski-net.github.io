@@ -8,7 +8,7 @@ on:
     types: [completed]
 
 env:
-  SITEMAP_URL: "${{ steps.deployment.outputs.page_url }}sitemap.xml"
+  SITEMAP_URL: "http://zuralski.net/sitemap.xml"
 
 jobs:
   validate_deployment:
@@ -18,6 +18,9 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v1
       - name: Check status
         run: curl --location --fail $SITEMAP_URL
 
