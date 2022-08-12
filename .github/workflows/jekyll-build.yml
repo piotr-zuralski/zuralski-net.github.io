@@ -28,10 +28,11 @@ jobs:
           ruby-version: '3.0'
           bundler-cache: true
           cache-version: 0
+      - run: bundle lock --add-platform x86_64-linux
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v1
-      - run: bundle lock --add-platform x86_64-linux && bundle install
+      - run: bundle install
       - name: build jekyll
         run: JEKYLL_ENV=$JEKYLL_ENV bundle exec jekyll build --baseurl ${{ steps.pages.outputs.base_path }} --destination $JEKYLL_DESTINATION
         env: 
