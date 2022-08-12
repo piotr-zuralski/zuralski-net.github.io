@@ -120,6 +120,7 @@ exclude:
   - ".svn"
   - ".gitkeep"
   - "setup.sh"
+  - "vendor"
 
 include:
   - "_pages"

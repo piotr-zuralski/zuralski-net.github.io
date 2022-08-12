@@ -27,14 +27,14 @@ jobs:
         with:
           bundler-cache: true
           cache-version: 0
-      - run: bundle lock --add-platform x86_64-linux
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v1
       - run: bundle install
       - name: build jekyll
-        run: JEKYLL_ENV=$JEKYLL_ENV bundle exec jekyll build --baseurl ${{ steps.pages.outputs.base_path }} --destination $JEKYLL_DESTINATION
+        run: bundle exec jekyll build --trace --baseurl ${{ steps.pages.outputs.base_path }} --destination $JEKYLL_DESTINATION
         env: 
+          JEKYLL_ENV: $JEKYLL_ENV
           JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OCTOKIT_ACCESS_TOKEN: $JEKYLL_GITHUB_TOKEN
       - name: Upload GitHub Pages artifact
