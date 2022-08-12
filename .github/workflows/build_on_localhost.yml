@@ -1,0 +1,32 @@
+name: Build
+
+on:
+  workflow_dispatch:
+
+env:
+  JEKYLL_ENV: "development"
+
+jobs:
+  build_with_ruby:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: false
+      - run: bundle install
+      - run: which jekyll
+      - run: bundle exec jekyll build
+      - run: bundle exec jekyll serve
+      
+  build_with_jekyll:
+    runs-on: ubuntu-latest
+    if: ${{ success() }}
+    steps:
+      - name: Build Jekyll
+        uses: actions/jekyll-build-pages@v1.0.5
+        with:
+          token: $JEKYLL_GITHUB_TOKEN
+          verbose: true
+        env:
+          JEKYLL_ENV: "development"
