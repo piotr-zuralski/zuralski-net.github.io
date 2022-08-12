@@ -14,10 +14,19 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: false
+      
+      - run: bundle update
+      - run: bundle lock --add-platform x86_64-linux
+
       - run: bundle install
       - run: which jekyll
       - run: bundle exec jekyll build
-      - run: bundle exec jekyll serve
+      # - run: bundle exec jekyll serve
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Automated Change
+          file_pattern: 'Gemfile.lock'
       
   build_with_jekyll:
     runs-on: ubuntu-latest
