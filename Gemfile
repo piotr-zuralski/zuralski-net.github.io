@@ -23,6 +23,7 @@ group :jekyll_plugins do
   gem "jekyll-import"
   gem "jekyll-archives"
   gem "jekyll-commonmark"
+  gem "jekyll-assets"
 end
 
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]

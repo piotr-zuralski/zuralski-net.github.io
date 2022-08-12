@@ -127,10 +127,17 @@ plugins:
   - jekyll-include-cache
   - jekyll-archives
   - jekyll-sitemap
-  - jekyll-feed
+#  - jekyll-feed
   - jekyll-seo-tag
-  - jekyll-time-to-read
   - jekyll-redirect-from
   - jekyll-last-modified-at
-  - jekyll-paginate
-  # - jekyll-remote-theme
+  - jekyll-assets
+#  - jekyll-paginate
+#  - jekyll-remote-theme
+#  - jekyll-time-to-read
+
+sass:
+  style: compressed
+
+assets:
+  cache: .jekyll-cache/assets/

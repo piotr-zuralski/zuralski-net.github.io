@@ -7,6 +7,7 @@
 <meta name="Last-Modified" content="{{ page.last_modified_at | default: site.time | date:'%a, %d %b %Y %H:%m:%S GMT%z' }}">
 <meta name="HandheldFriendly" content="true">
 <meta name="format-detection" content="telephone=no">
+<meta name="robots" content="{{ page.robots | default: 'index,follow' }">
 {% seo %}
 <link rel="preconnect" href="https://cdn.polyfill.io" crossorigin />
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
@@ -15,6 +16,8 @@
 <link rel="preconnect" href="https://browser-update.org" crossorigin />
 {% for file in site.static_files %}
   {%- if file.extname == '.css' or file.extname == '.scss' -%}
+    <!-- jekyll-asset: {% asset '{{ file.path }}' %} -->
+    <!-- jekyll-asset: {% asset file.path %} -->
     <link rel="stylesheet" type="text/css" href="{{ file.path }}?v={{ file.modified_time | date: '%s' }}"/>
   {% endif %}
 {%- endfor -%}
