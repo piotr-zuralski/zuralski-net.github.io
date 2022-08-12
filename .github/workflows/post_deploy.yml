@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check status
-        run: curl $SITEMAP_URL
+        run: curl --fail-with-body $SITEMAP_URL
   
   purge_cache_cloudflare:
     runs-on: ubuntu-latest
