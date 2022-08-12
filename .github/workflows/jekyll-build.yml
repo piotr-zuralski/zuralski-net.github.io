@@ -31,7 +31,7 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v1
-      - run: bundle install
+      - run: bundle lock --add-platform x86_64-linux && bundle install
       - name: build jekyll
         run: JEKYLL_ENV=$JEKYLL_ENV bundle exec jekyll build --baseurl ${{ steps.pages.outputs.base_path }} --destination $JEKYLL_DESTINATION
         env: 
