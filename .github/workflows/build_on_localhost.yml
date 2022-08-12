@@ -17,9 +17,8 @@ jobs:
       
       - run: bundle update
       - run: bundle lock --add-platform x86_64-linux
-
       - run: bundle install
-      - run: which jekyll
+      
       - run: bundle exec jekyll build
       # - run: bundle exec jekyll serve
 

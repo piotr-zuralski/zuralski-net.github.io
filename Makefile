@@ -17,7 +17,7 @@ install: clean
 
 install-and-serve: serve
 
-build:
+build: clean
 	act --container-architecture=linux/amd64 -j build_with_ruby
 
 test:
