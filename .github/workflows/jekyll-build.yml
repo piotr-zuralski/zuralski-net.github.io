@@ -33,7 +33,7 @@ jobs:
         uses: actions/configure-pages@v1
       - run: bundle install
       - name: build jekyll
-        run: JEKYLL_ENV=$JEKYLL_ENV bundle exec jekyll build --baseurl ${{ steps.pages.outputs.base_path } --destination $JEKYLL_DESTINATION
+        run: JEKYLL_ENV=$JEKYLL_ENV bundle exec jekyll build --baseurl ${{ steps.pages.outputs.base_path }} --destination $JEKYLL_DESTINATION
         env: 
           JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OCTOKIT_ACCESS_TOKEN: $JEKYLL_GITHUB_TOKEN
