@@ -19,8 +19,4 @@
   name: zuralski.net
   type: Organization
   "@type": Organization
-
-#   url: https://piotr.zuralski.net/
-#   google_plus:
-#   seo:
-#     name: Piotr Żuralski
+  web: https://zuralski.net/

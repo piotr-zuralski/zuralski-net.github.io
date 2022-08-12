@@ -14,15 +14,10 @@
 <link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
 <link rel="preconnect" href="https://stats.g.doubleclick.net" crossorigin />
 <link rel="preconnect" href="https://browser-update.org" crossorigin />
-{% for file in site.static_files %}
-  {%- if file.extname == '.css' or file.extname == '.scss' -%}
-    <!-- jekyll-asset: {% asset '{{ file.path }}' %} -->
-    <!-- jekyll-asset: {% asset file.path %} -->
-    <link rel="stylesheet" type="text/css" href="{{ file.path }}?v={{ file.modified_time | date: '%s' }}"/>
-  {% endif %}
-{%- endfor -%}
+{% asset 'style.css' %}
+{% asset 'main.css' %}
 <link rel="manifest" href="/manifest.json">
-<!-- <link rel="shortcut icon" href="/favicon.ico"> -->
+{% comment %}<!-- <link rel="shortcut icon" href="/favicon.ico"> -->{% endcomment %}
 <link rel="robots" type="text/plain" href="{{ '/robots.txt' | relative_url }}"/>
 <link rel="sitemap" type="application/xml" href="/sitemap.xml"/>
 <link rel="alternate" type="application/rss+xml" title="{{ site.title }} feed" href="/feed.xml"/>
@@ -32,7 +27,5 @@
   gtag('js', new Date());
   var pageLoadStart = Date.now(), pageLoadTime = null, pageLoadEnd = null, visitStart = pageLoadStart, visitTime = null, visitorType = 'standard', visitEnd = null;
 </script>
-{% if jekyll.environment == "production" %}
-  {% include stats-analytics.html %}
-{% endif %}
+{% include stats-analytics.html %}
 <!-- /head.html -->

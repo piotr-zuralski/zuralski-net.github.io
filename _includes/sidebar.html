@@ -1,38 +1,16 @@
 <!-- sidebar.html -->
 <aside class="container__sidebar">
-  {% comment %}
-  <!--
-  <aside id="search-2" class="widget widget_search">
-      <form role="search" method="get" id="searchform" class="searchform" action="/search.html">
-          <div>
-              <label class="screen-reader-text" for="s">Search for:</label>
-              <input type="text" value="" name="s" id="s" />
-              <input type="submit" id="searchsubmit" value="Search" />
-          </div>
-      </form>
-  </aside>
-  <br />
-  -->
-  {% endcomment %}
-
-  {% if site.data.navigation.social_links %}
-    <aside id="sidebar-widget-social_links" class="widget widget_text">
-      <div class="textwidget">
-        <!-- navigation social_links -->
-        {% if site.data.navigation.social_links %}
-        {% if site.data.navigation.social_links.list_title %}
-        <h3>{{ site.data.navigation.social_links.list_title }}</h3>
-        {% endif %}
-        <ul>
-          {% for item in site.data.navigation.social_links.items %}
-          <li><a href="{{ item.url }}" title="{{ item.title }}" rel="me">{{ item.title }}</a></li>
-          {% endfor %}
-        </ul>
-        {% endif %}
-        <!-- / navigation social_links -->
-      </div>
-    </aside><br />
+  {% if jekyll.environment == "development" && site.data.navigation['sidebar_menu'] %}
+    <aside id="sidebar-widget-sidebar_menu" class="widget widget_text">
+      {% include navigation.html menu='sidebar_menu' display_menu_name=false list_class='list-inline' %}
+    </aside>
   {% endif %}
+  <br />
 
+  {% if jekyll.environment == "development" && site.data.navigation['sidebar_social_links'] %}
+    <aside id="sidebar-widget-social_links" class="widget widget_text">
+      {% include navigation.html menu='sidebar_social_links' display_menu_name=false list_class='list-inline' %}
+    </aside>
+  {% endif %}
 </aside>
 <!-- /sidebar.html -->

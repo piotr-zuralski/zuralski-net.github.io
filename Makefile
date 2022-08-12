@@ -18,12 +18,12 @@ install: clean
 install-and-serve: serve
 
 build:
-	act --container-architecture=linux/amd64 -j build
+	act --container-architecture=linux/amd64 -j build_with_ruby
 
 test:
 	# act -P ubuntu-latest=nektos/act-environments-ubuntu:18.04
 	act --container-architecture=linux/amd64 -j lint
 
-s serve:
+s serve: clean
 	# JEKYLL_ENV=development 
 	bundle exec jekyll serve --incremental --verbose --trace

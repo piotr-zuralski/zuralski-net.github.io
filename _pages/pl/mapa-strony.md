@@ -20,6 +20,10 @@ last_modified_at: 2021-10-30 10:35
     1. [Polityka prywatności](/pl/zasady/polityka-prywatnosci.html)
 1. [Kontakt](/pl/kontakt.html)
 1. [Mapa strony](/pl/mapa-strony.html)
-<!-- 1. [Strony partnerskie](/pl/strony-partnerskie.html) -->
+
+{%- if jekyll.environment == "development" %}
+1. [Strony partnerskie](/pl/strony-partnerskie.html)
+1. [Debug](/_debug.html)
+{% endif %}
 
 {% include _autolink.md %}

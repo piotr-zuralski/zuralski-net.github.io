@@ -1,18 +1,32 @@
-<!-- navigation.html -->
-{% if site.data.navigation.menu %}
-  {% comment %}
-  <!--
-  {% if site.data.navigation.menu.list_title %}
-  <h2>{{ site.data.navigation.menu.list_title }}</h2>
-  {% endif %}
-  -->
-  {% endcomment %}
-  <ul class="list-inline">
-      {% for item in site.data.navigation.menu.items %}
-      <li class="{% if item.url == page.url %}active{% endif %}">
-          <a href="{{ item.url }}" title="{{ item.title }}">{{ item.title }}</a>
-      </li>
-      {% endfor %}
-  </ul>
-{% endif %}
-<!-- /navigation.html -->
+{%- assign menu_name = include.menu -%}
+{%- assign menu = site.data.navigation[menu_name] -%}
+<!-- navigation.html menu: {{ menu_name }}, list_title: {{ menu.list_title| defualt: "NULL" }} -->
+{%- if menu -%}
+  {%- assign heading = include.heading | default: 'h2' -%}
+
+  {%- if menu.list_title and include.display_menu_name == true -%}
+    <{{- heading -}}>{{ menu.list_title }}</{{- heading -}}>
+  {%- endif -%}
+
+  {%- if menu.items -%}
+    <nav>
+      <ul {%- if include.list_class %} class="{{- include.list_class -}}"{%- endif -%}>
+          {% for item in menu.items -%}
+          {%- if (item.environment == nil or (item.environment != nil and (item.environment == jekyll.environment))) -%}
+          {%- if item.display == nil %}
+            <li{%- if item.url == page.url %} class="active"{%- endif -%}>
+                {%- if item.url contains 'http' -%}
+                  {%- assign is_external = true -%}
+                {%- else -%}
+                  {%- assign is_external = false -%}
+                {%- endif -%}
+                <a href="{{ item.url }}{%- if is_external == false -%}#ref={{- menu_name -}}{%- endif -%}" title="{{ item.title }}"{%- if is_external == true %} rel="external" target="_blank"{% endif %}>{{ item.title }}</a> 
+            </li>
+            {% endif -%}
+            {%- endif -%}
+          {%- endfor %}
+      </ul>
+    </nav>
+  {%- endif -%}
+{%- endif -%}
+<!-- /navigation.html menu: {{ menu_name }} -->

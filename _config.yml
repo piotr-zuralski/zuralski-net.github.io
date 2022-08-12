@@ -119,6 +119,8 @@ exclude:
   - ".git"
   - ".svn"
   - ".gitkeep"
+  - "CNAME"
+  - "setup.sh"
 
 include:
   - "_pages"

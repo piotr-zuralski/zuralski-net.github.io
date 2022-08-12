@@ -10,29 +10,27 @@ menu:
     - title: Mapa strony
       url: /pl/mapa-strony.html
 
-sidebar_menu:
-  items:
-    - title: Strona główna
-      url: /pl/
-
-# sidebar_social_links:
+# sidebar_menu:
 #   items:
-#     - title: zuralski.net (GitHub)
-#       url: https://zuralski-net.github.io/
-#     - title: piotr.zuralski.net (GitHub)
-#       url: https://piotr-zuralski.github.io/
-#     - title: piotr.zuralski.net (Cloudflare Pages)
-#       url: https://piotr-zuralski.pages.dev/
+#     - title: Strona główna
+#       url: /pl/
+
+sidebar_social_links:
+  items:
+    - title: zuralski.net (GitHub)
+      url: https://zuralski-net.github.io/
+    - title: piotr.zuralski.net (GitHub)
+      url: https://piotr-zuralski.github.io/
+    - title: piotr.zuralski.net (Cloudflare Pages)
+      url: https://piotr-zuralski.pages.dev/
 
 footer:
+  list_title: Footer
   items:
     - title: Strona główna
       url: /pl/
     - title: Kontakt
       url: /pl/kontakt.html
-    # - title: Zasady
-    #   url: /pl/zasady
-    #   links:
     - title: Polityka prywatności
       url: /pl/zasady/polityka-prywatnosci.html
     - title: Mapa strony

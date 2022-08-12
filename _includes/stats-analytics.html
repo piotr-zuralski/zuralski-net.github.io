@@ -1,5 +1,5 @@
 <!-- stats-analytics.html -->
-{% if site.google_analytics %}
+{% if jekyll.environment == "production" && site.google_analytics %}
   <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
   <script>
     gtag('config', '{{ site.google_analytics }}');

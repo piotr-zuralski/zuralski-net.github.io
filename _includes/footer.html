@@ -2,29 +2,12 @@
 {%- assign locale = page.locale | default: site.locale -%}
 {%- assign locale_page = '/' | append: locale | append: '/' -%}
 <footer class="footer page-footer border-top border-gray-light">
-    <!--
-      var experience: {{ site.experience.sinceYear }}
-      {% assign currentYear = 'now'|date: '%Y' %}
-      currentYear var: "{{ currentYear }}"
-      experience: "{{ currentYear | minus: site.experience.sinceYear }}"
-    -->
     <span class="site-footer-copyright text-center">
         Copyright &copy; {{ site.copyright.sinceYear }}&mdash;<span id="current-year">{{ site.time | date: '%Y' }}</span>
         <a href="{{ locale_page | absolute_url }}" title="{{ site.name | default: site.title }}">{{ site.name | default: site.title }}</a>.
     </span>
     
-    
-    {% if site.data.navigation.footer and site.data.navigation.footer.items %}
-        <span class="site-footer-links text-left"></span>
-            <ul class="list-inline">
-                {% for item in site.data.navigation.footer.items %}
-                <li class="{% if item.url == page.url %}active{% endif %}">
-                    <a href="{{ item.url }}" title="{{ item.title }}">{{ item.title }}</a>
-                </li>
-                {% endfor %}
-            </ul>
-        </span>
-    {% endif %}
+    {% include navigation.html menu='footer' display_menu_name=false list_class='list-inline' %}
 
     {% if site.github.private != true and site.github.license %}
       <div class="text-right text-gray">
