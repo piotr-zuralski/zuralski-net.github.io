@@ -1,4 +1,4 @@
-name: jekyll-build
+name: pages build and deployment
 
 on:
   push:
