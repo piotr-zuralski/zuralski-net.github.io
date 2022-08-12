@@ -23,7 +23,7 @@ jobs:
           bundler-cache: false
       - run: bundle install
       - run: JEKYLL_ENV=$JEKYLL_ENV bundle exec jekyll build --destination $JEKYLL_DESTINATION
-        with: 
+        env: 
           JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OCTOKIT_ACCESS_TOKEN: $JEKYLL_GITHUB_TOKEN
 

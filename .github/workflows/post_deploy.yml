@@ -11,9 +11,17 @@ env:
   SITEMAP_URL: "https://zuralski.net/sitemap.xml"
 
 jobs:
+  validate_deployment:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check status
+        run: curl $SITEMAP_URL
+  
   purge_cache_cloudflare:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    needs: validate_deployment
+    if: ${{ success() }}
     steps:
       - name: Cloudflare Purge Cache
         uses: jakejarvis/cloudflare-purge-action@master
@@ -23,7 +31,8 @@ jobs:
 
   sitemaps_ping:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    needs: validate_deployment
+    if: ${{ success() }}
     steps:
       - name: Ping Bing
         run: |
