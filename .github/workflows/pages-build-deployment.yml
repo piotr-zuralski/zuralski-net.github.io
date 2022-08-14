@@ -1,6 +1,8 @@
 name: pages-build-deployment
 
 on:
+  schedule:
+    - cron: '01 00 1 1 *'
   push:
     branches: ["main"]
   workflow_dispatch:
@@ -45,6 +47,8 @@ jobs:
           JEKYLL_ENV: $JEKYLL_ENV
           JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OCTOKIT_ACCESS_TOKEN: $JEKYLL_GITHUB_TOKEN
+      - name: uglifier
+        run: bundle exec rake minify
       - name: Upload GitHub Pages artifact
         if: ${{ success() }}
         uses: actions/upload-pages-artifact@v1.0.3

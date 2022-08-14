@@ -41,3 +41,6 @@ gem "sequel"
 gem "htmlentities"
 gem "github-pages-health-check"
 gem "sprockets", "~> 3.7"
+gem "uglifier", "~> 4.2"
+
+gem "rake", "~> 13.0"

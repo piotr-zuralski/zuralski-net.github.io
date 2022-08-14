@@ -121,6 +121,7 @@ exclude:
   - ".gitkeep"
   - "setup.sh"
   - "vendor"
+  - "Rakefile"
 
 include:
   - "_pages"
@@ -147,6 +148,10 @@ assets:
     enabled: true
     path: .jekyll-cache/assets/
   compression: true
+  compressors:
+    uglifier:
+      harmony: true
+  digest: true
   defaults:
     integrity:
       {css,img,js}: true

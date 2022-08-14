@@ -253,6 +253,7 @@ GEM
     public_suffix (4.0.7)
     racc (1.6.0)
     rack (2.2.4)
+    rake (13.0.6)
     rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
@@ -282,6 +283,8 @@ GEM
       ethon (>= 0.9.0)
     tzinfo (1.2.10)
       thread_safe (~> 0.1)
+    uglifier (4.2.0)
+      execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8.2)
@@ -311,9 +314,11 @@ DEPENDENCIES
   jekyll-sitemap
   jekyll-titles-from-headings
   liquid-c
+  rake (~> 13.0)
   sequel
   sprockets (~> 3.7)
   tzinfo-data
+  uglifier (~> 4.2)
   unidecode
 
 BUNDLED WITH
