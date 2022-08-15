@@ -40,9 +40,11 @@ jobs:
     needs: validate_deployment
     if: ${{ success() }}
     steps:
-      - name: Ping Bing
-        run: |
-          curl https://www.bing.com/ping?sitemap=$SITEMAP_URL
-      - name: Ping Google
-        run: |
-          curl https://www.google.com/webmasters/tools/ping?sitemap=$SITEMAP_URL
+      - name: Sitemap URL
+        run: echo $SITEMAP_URL
+      # - name: Ping Bing
+      #   run: |
+      #     curl --location --fail https://www.bing.com/ping?sitemap=$SITEMAP_URL
+      # - name: Ping Google
+      #   run: |
+      #     curl --location --fail https://www.google.com/webmasters/tools/ping?sitemap=$SITEMAP_URL
