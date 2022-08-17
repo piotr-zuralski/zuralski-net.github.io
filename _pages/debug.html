@@ -48,6 +48,9 @@ robots: noindex,follow
   {% for k in assets %}
     <li>{{ k | jsonify }}</li>
   {% endfor %}
+  {% for k in assets %}
+    <li>{% asset k['0'] %}</li>
+  {% endfor %}
 </ul>
 <pre>
   {{ asset['main.css'].filename | jsonify }}
