@@ -43,13 +43,13 @@ jobs:
           echo "${{ steps.pages.outputs.base_path }}"
       - name: build jekyll
         run: |
-          echo "JEKYLL_ENV: $$JEKYLL_ENV"
-          echo "JEKYLL_DESTINATION: $$JEKYLL_DESTINATION"
+          echo "JEKYLL_ENV: $JEKYLL_ENV ${{ env.JEKYLL_ENV }}"
+          echo "JEKYLL_DESTINATION: $JEKYLL_DESTINATION ${{ env.JEKYLL_DESTINATION }}"
           env 
           bundle exec rake
         env: 
-          JEKYLL_ENV: $$JEKYLL_ENV
-          JEKYLL_DESTINATION: $$JEKYLL_DESTINATION
+          JEKYLL_ENV: $JEKYLL_ENV
+          JEKYLL_DESTINATION: $JEKYLL_DESTINATION
           JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OCTOKIT_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload GitHub Pages artifact
