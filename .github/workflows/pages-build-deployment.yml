@@ -41,6 +41,7 @@ jobs:
       - name: build jekyll
         run: bundle exec rake
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OCTOKIT_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload GitHub Pages artifact
