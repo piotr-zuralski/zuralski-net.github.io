@@ -45,13 +45,8 @@ jobs:
         if: ${{ github.actor != 'nektos/act' }}
         id: pages
         uses: actions/configure-pages@v1
-      - name: validate GitHub token
-        run: |
-          curl -H 'Authorization: token ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/user -I
       - name: build jekyll
-        run: |
-          env
-          bundle exec rake
+        run: bundle exec rake
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

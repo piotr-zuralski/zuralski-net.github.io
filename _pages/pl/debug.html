@@ -43,6 +43,13 @@ robots: noindex,follow
     {% endfor %}
 </ul>
 
+<p>assets</p>
+<ul>
+  {% for k,v in assets %}
+    <li>{{ k }}</li>
+  {% endfor %}
+</ul>
+
 <p>
     site.locale: {{ site.locale | jsonify }}<br/>
     page.locale: {{ page.locale | jsonify }}<br/>
