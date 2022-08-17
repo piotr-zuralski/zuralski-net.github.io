@@ -4,11 +4,11 @@ require "uglifier"
 require "find"
 
 JEKYLL_DESTINATION = ENV["JEKYLL_DESTINATION"] = File.expand_path(ENV.fetch("JEKYLL_DESTINATION", "./_site")) + "/"
-ASSETS_DIR = "#{ENV["JEKYLL_DESTINATION"]}/assets/"
+ASSETS_DIR = "#{ENV["JEKYLL_DESTINATION"]}assets/"
 
 JEKYLL_ENV = ENV["JEKYLL_ENV"] = ENV.fetch("JEKYLL_ENV", "development")
-ENV["JEKYLL_GITHUB_TOKEN"] = ENV.fetch("GITHUB_TOKEN", nil)
-ENV["OCTOKIT_ACCESS_TOKEN"] = ENV.fetch("JEKYLL_GITHUB_TOKEN", nil)
+ENV["JEKYLL_GITHUB_TOKEN"] = ENV.fetch("JEKYLL_GITHUB_TOKEN", ENV.fetch("GITHUB_TOKEN", nil))
+ENV["OCTOKIT_ACCESS_TOKEN"] = ENV.fetch("OCTOKIT_ACCESS_TOKEN", ENV.fetch("JEKYLL_GITHUB_TOKEN", nil))
 
 task :clean do
   puts "Cleaning..."
