@@ -28,10 +28,10 @@ copyright:
 
 experience:
   sinceYear: 2007
-  currentYear: 2020
-  experience: 13
+  # currentYear: 2020
+  # experience: 13
 
-languages: ["en", "pl", "es", "de"]
+languages: ["en", "pl"]
 exclude_from_localizations: ["files", "assets", "resources"]
 
 plugins_dir: _plugins
@@ -62,7 +62,6 @@ defaults:
       path: "" # an empty string here means all files in the project
     values:
       #      permalink: /:locale/:categories/:title:output_ext
-      layout: null
       author: "zuralski.net"
   - scope:
       path: "./_pages/"
@@ -94,7 +93,7 @@ exclude:
   - "TODO.md"
   - "README.md"
   - "Makefile"
-  - ".jekyll-cache"
+  - ".jekyll-cache/"
   - ".git"
   - ".svn"
   - ".gitkeep"
@@ -130,6 +129,17 @@ sass:
   load_paths: []
 
 assets:
+  cache: 
+    enabled: true
+    path: .jekyll-cache/assets/
+  compression: true
+  compressors:
+    uglifier:
+      harmony: true
+  digest: true
+  defaults:
+    integrity:
+      {css,img,js,sass,scss}: true
   sources:
     - _assets/css/
     - _assets/scss/
