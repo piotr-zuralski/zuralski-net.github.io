@@ -14,12 +14,11 @@
 <link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
 <link rel="preconnect" href="https://stats.g.doubleclick.net" crossorigin />
 <link rel="preconnect" href="https://browser-update.org" crossorigin />
-
-{% asset 'style.css' %}
-{% asset 'style.scss' %}
-
-{% asset 'main.css' %}
-
+{% for file in site.static_files %}
+  {%- if file.extname == '.css' or file.extname == '.scss' -%}
+    <link rel="stylesheet" type="text/css" href="{{ file.path }}?v={{ file.modified_time | date: '%s' }}"/>
+  {% endif %}
+{%- endfor %}
 <link rel="manifest" href="/manifest.json">
 {% comment %}<!-- <link rel="shortcut icon" href="/favicon.ico"> -->{% endcomment %}
 <link rel="robots" type="text/plain" href="{{ '/robots.txt' | relative_url }}"/>

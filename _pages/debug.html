@@ -43,23 +43,6 @@ robots: noindex,follow
     {% endfor %}
 </ul>
 
-<p>assets</p>
-<ol>
-  {% for k in assets %}
-  <li>
-    <ul>
-      <li>{{ k | jsonify }}</li>
-      <li>content_type: {{ k.content_type | jsonify }}</li>
-      <li>{{ k[0] | jsonify }} {{ k[1] | jsonify }} {{ k[0] | asset_url }}</li>
-      <li>{{ asset[ k[0] ].filename | jsonify }}</li>
-    </ul>
-  </li>
-  {% endfor %}
-</ol>
-<pre>
-  {{ assets  }} 
-</pre>
-
 <p>
     site.locale: {{ site.locale | jsonify }}<br/>
     page.locale: {{ page.locale | jsonify }}<br/>
@@ -67,7 +50,6 @@ robots: noindex,follow
 
 <div>
   <p>jekyll debug: <a href="javascript:void();" onclick="jekyllDebugFormat();">format jekyll</a></p>
-  <p>assets: <pre class="jekyll-debug" id="jekyll-debug-assets">{{ assets | jsonify | escape }}</pre></p>
   <p>content: <pre class="jekyll-debug" id="jekyll-debug-content">{{ content | jsonify | escape }}</pre></p>
   <p>page: <pre class="jekyll-debug" id="jekyll-debug-page">{{ page | jsonify | escape }}</pre></p>
   <p>jekyll: <pre class="jekyll-debug" id="jekyll-debug-jekyll">{{ jekyll | jsonify | escape }}</pre></p>

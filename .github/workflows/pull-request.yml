@@ -10,7 +10,7 @@ on:
     - 'Rakefile'
     - '.ruby-version'
     - '_config.yml'
-    - '_assets/*'
+    - 'assets/*'
     - '_data/*'
     - '_includes/*'
     - '_layouts/*'

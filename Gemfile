@@ -34,7 +34,6 @@ gem "jekyll"
 gem "liquid-c"
 gem "github-pages", group: :jekyll_plugins
 gem "jekyll-compose", group: :jekyll_plugins
-gem "jekyll-assets", git: "https://github.com/envygeeks/jekyll-assets", group: :jekyll_plugins
 
 gem "unidecode" 
 gem "sequel" 

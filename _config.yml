@@ -113,7 +113,6 @@ plugins:
   - jekyll-seo-tag
   - jekyll-redirect-from
   - jekyll-last-modified-at
-  - jekyll-assets
 #  - jekyll-feed
 #  - jekyll-paginate
 #  - jekyll-remote-theme
@@ -125,38 +124,5 @@ sass:
   style: compressed
   sourcemap: never
   line_comments: false
-  sass_dir: _assets/sass
+  sass_dir: assets/css
   load_paths: []
-
-assets:
-  digest: true
-  precompile: []
-  source_maps: false
-  destination: '/assets'
-  compression: false
-  raw_precompile: []
-  full_url: false
-  gzip: false
-  compressors:
-    uglifier:
-      comments: false
-      harmony: true
-  caching:
-    path: '.jekyll-cache/assets'
-    enabled: true
-    type: 'file'
-  cdn:
-    baseurl: false
-    destination: false
-    url: "https://zuralski.net/"
-  defaults:
-    js: { integrity: true, type: true }
-    css: { integrity: true, type: true }
-    img: { integrity: true }
-  sources:
-    - _assets/css/
-    - _assets/scss/
-    - _assets/sass/
-    - _assets/js/
-    - assets/css/
-  
