@@ -133,7 +133,6 @@ assets:
   precompile: []
   source_maps: false
   destination: '/assets'
-  digest_algorithm: 'sha512'
   compression: false
   raw_precompile: []
   full_url: false
