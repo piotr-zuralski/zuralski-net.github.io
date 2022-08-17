@@ -129,9 +129,6 @@ sass:
   load_paths: []
 
 assets:
-  cache: 
-    enabled: true
-    path: .jekyll-cache/assets/
   compression: true
   compressors:
     uglifier:
