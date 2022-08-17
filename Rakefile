@@ -56,3 +56,5 @@ task :generate_version do
 
   puts "Generated version: #{version}"
 end
+
+task :post_build => [:minify, :generate_version]

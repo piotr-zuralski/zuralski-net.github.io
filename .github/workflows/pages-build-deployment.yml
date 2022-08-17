@@ -48,12 +48,16 @@ jobs:
         if: ${{ github.actor != 'nektos/act' }}
         id: pages
         uses: actions/configure-pages@v1
-      - name: build jekyll
-        run: bundle exec rake
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OCTOKIT_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: build jekyll
+      #   run: bundle exec rake
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     OCTOKIT_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: build jekyll (2)
+        run: bundle exec jekyll build --trace --verbose --destination ${{ env.JEKYLL_DESTINATION }}
+      - name: post build
+        run: bundle exec rake post_build
       - name: Upload GitHub Pages artifact
         if: ${{ success() && github.actor != 'nektos/act' }}
         uses: actions/upload-pages-artifact@v1.0.3
