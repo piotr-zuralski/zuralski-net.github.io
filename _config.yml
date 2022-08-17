@@ -155,3 +155,7 @@ assets:
   defaults:
     integrity:
       {css,img,js}: true
+  sources:
+    - assets/css
+    - assets/js
+    - assets/scss

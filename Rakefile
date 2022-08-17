@@ -24,9 +24,9 @@ task :build => [:clean] do
   puts "Building site"
   puts "JEKYLL_ENV: #{JEKYLL_ENV}"
   puts "JEKYLL_DESTINATION: #{JEKYLL_DESTINATION}"
-  puts "GITHUB_TOKEN: #{ENV["GITHUB_TOKEN"]} || #{ENV["GITHUB_TOKEN"]}.length"
-  puts "JEKYLL_GITHUB_TOKEN: #{ENV["JEKYLL_GITHUB_TOKEN"]} || #{ENV["JEKYLL_GITHUB_TOKEN"]}.length"
-  puts "OCTOKIT_ACCESS_TOKEN: #{ENV["OCTOKIT_ACCESS_TOKEN"]} || #{ENV["OCTOKIT_ACCESS_TOKEN"]}.length"
+  puts "GITHUB_TOKEN: #{ENV["GITHUB_TOKEN"]} || #{ENV["GITHUB_TOKEN"].length}"
+  puts "JEKYLL_GITHUB_TOKEN: #{ENV["JEKYLL_GITHUB_TOKEN"]} || #{ENV["JEKYLL_GITHUB_TOKEN"].length}"
+  puts "OCTOKIT_ACCESS_TOKEN: #{ENV["OCTOKIT_ACCESS_TOKEN"]} || #{ENV["OCTOKIT_ACCESS_TOKEN"].length}"
 
   if JEKYLL_ENV == "production" and (ENV["JEKYLL_GITHUB_TOKEN"] == nil or ENV["JEKYLL_GITHUB_TOKEN"] == "") then
     abort "Please set the JEKYLL_GITHUB_TOKEN environment variable"
