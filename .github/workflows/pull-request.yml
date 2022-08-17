@@ -23,7 +23,7 @@ env:
 
 permissions:
   contents: read
-  pages: write
+  pages: read
   id-token: write
 
 jobs:
@@ -61,4 +61,4 @@ jobs:
       - name: Validate sitemap.xml
         uses: cobraz/parse-sitemap@v1.0.1
         with:
-          sitemap-url: file://${{ env.JEKYLL_DESTINATION }}/sitemap.xml
+          sitemap-url: file://${{ env.GITHUB_WORKSPACE }}/${{ env.JEKYLL_DESTINATION }}/sitemap.xml
