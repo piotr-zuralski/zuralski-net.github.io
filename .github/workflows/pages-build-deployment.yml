@@ -10,6 +10,7 @@ on:
 env:
   JEKYLL_ENV: "production"
   JEKYLL_DESTINATION: "./_site"
+  RUBY_VERSION: 2.7.5
 
 permissions:
   contents: read
@@ -34,10 +35,12 @@ jobs:
       - uses: ruby/setup-ruby@v1
         if: ${{ github.actor != 'nektos/act' }}
         with:
+          ruby-version: ${{ env.RUBY_VERSION }}
           bundler-cache: true
       - uses: ruby/setup-ruby@v1
         if: ${{ github.actor == 'nektos/act' }}
         with:
+          ruby-version: ${{ env.RUBY_VERSION }}
           bundler-cache: false
       - if: ${{ github.actor == 'nektos/act' }}
         run: bundle install

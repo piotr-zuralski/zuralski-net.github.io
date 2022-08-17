@@ -9,6 +9,7 @@ on:
 
 env:
   SITEMAP_URL: "http://zuralski.net/sitemap.xml"
+  RUBY_VERSION: 2.7.5
 
 jobs:
   validate_deployment:
