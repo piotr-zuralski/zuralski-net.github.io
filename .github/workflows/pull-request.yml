@@ -51,13 +51,14 @@ jobs:
         if: ${{ github.actor != 'nektos/act' }}
         id: pages
         uses: actions/configure-pages@v1
+      - run: env
       - name: build jekyll
         run: bundle exec rake
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OCTOKIT_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+      
       - name: Validate sitemap.xml
         uses: cobraz/parse-sitemap@v1.0.1
         with:
