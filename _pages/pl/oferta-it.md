@@ -2,7 +2,7 @@
 layout: redirect
 published: true
 permalink: /pl/oferta/it.html
-title: Oferta IT
+title: Oferta
 redirect_from:
   - /oferta/
   - /oferta/finanse/
