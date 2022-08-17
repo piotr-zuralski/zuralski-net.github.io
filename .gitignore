@@ -24,4 +24,6 @@ _site/
 .history
 .ionide
 
+*.local
+
 # End of https://www.toptal.com/developers/gitignore/api/jekyll,visualstudiocode

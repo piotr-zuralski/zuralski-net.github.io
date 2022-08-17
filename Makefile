@@ -18,11 +18,11 @@ install: clean
 install-and-serve: serve
 
 build: clean
-	act --container-architecture=linux/amd64 -j build_with_ruby
+	act --container-architecture "linux/amd64" --secret-file ".secrets.local" --env-file ".env.local" --reuse -j build
 
 test:
 	# act -P ubuntu-latest=nektos/act-environments-ubuntu:18.04
-	act --container-architecture=linux/amd64 -j lint
+	act --container-architecture "linux/amd64" --secret-file ".secrets.local" --env-file ".env.local" --reuse -j lint
 
 s serve: clean
 	# JEKYLL_ENV=development 
