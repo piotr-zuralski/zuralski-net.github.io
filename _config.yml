@@ -147,12 +147,12 @@ assets:
     enabled: true
     type: 'file'
   cdn:
-    baseurl: false,
+    baseurl: false
     destination: false
     url: null
   defaults:
-    js: { integrity: true }
-    css: { integrity: true }
+    js: { integrity: true, type: true }
+    css: { integrity: true, type: true }
     img: { integrity: true }
   sources:
     - _assets/css/
