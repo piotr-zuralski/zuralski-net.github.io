@@ -148,7 +148,7 @@ assets:
   cdn:
     baseurl: false
     destination: false
-    url: null
+    url: ""
   defaults:
     js: { integrity: true, type: true }
     css: { integrity: true, type: true }
