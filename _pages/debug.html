@@ -46,11 +46,11 @@ robots: noindex,follow
 <p>assets</p>
 <ul>
   {% for k in assets %}
-    <li>{{ assets[k] }}</li>
+    <li>{{ k | jsonify }}</li>
   {% endfor %}
 </ul>
 <pre>
-  {{ asset['main.css'] }}
+  {{ asset['main.css'] | jsonify }}
 </pre>
 
 <p>
