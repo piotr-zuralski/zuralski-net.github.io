@@ -120,9 +120,9 @@ plugins:
 #  - jekyll-time-to-read
 
 sass:
-  # style: compressed
   implementation: sass-embedded
   # implementation: sassc
+  style: compressed
   sourcemap: never
   line_comments: false
   sass_dir: _assets/sass
