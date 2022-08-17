@@ -7,6 +7,7 @@ JEKYLL_DESTINATION = ENV["JEKYLL_DESTINATION"] = File.expand_path(ENV.fetch("JEK
 ASSETS_DIR = "#{ENV["JEKYLL_DESTINATION"]}assets/"
 
 JEKYLL_ENV = ENV["JEKYLL_ENV"] = ENV.fetch("JEKYLL_ENV", "development")
+ENV["GITHUB_TOKEN"] = ENV.fetch("GITHUB_TOKEN", nil)
 ENV["JEKYLL_GITHUB_TOKEN"] = ENV.fetch("JEKYLL_GITHUB_TOKEN", ENV.fetch("GITHUB_TOKEN", nil))
 ENV["OCTOKIT_ACCESS_TOKEN"] = ENV.fetch("OCTOKIT_ACCESS_TOKEN", ENV.fetch("JEKYLL_GITHUB_TOKEN", nil))
 
@@ -23,6 +24,10 @@ task :build => [:clean] do
   puts "Building site"
   puts "JEKYLL_ENV: #{JEKYLL_ENV}"
   puts "JEKYLL_DESTINATION: #{JEKYLL_DESTINATION}"
+
+  if JEKYLL_ENV == "production" and (ENV["JEKYLL_GITHUB_TOKEN"] == nil or ENV["JEKYLL_GITHUB_TOKEN"] == "") then
+    abort "Please set the JEKYLL_GITHUB_TOKEN environment variable"
+  end
 
   `bundle exec jekyll build --trace --verbose --destination #{JEKYLL_DESTINATION}`
 end
