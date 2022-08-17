@@ -1,4 +1,5 @@
 ---
+layout: default
 published: false
 permalink: /pl/podmioty-wspolpracujace.html
 redirect_from:

@@ -1,5 +1,6 @@
 ---
 published: true
+layout: default
 permalink: /pl/strony-partnerskie.html
 redirect_from:
   - /strony-partnerskie/

@@ -1,4 +1,5 @@
 ---
+layout: redirect
 published: true
 permalink: /pl/kontakt.html
 redirect_from:

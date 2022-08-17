@@ -1,5 +1,6 @@
 ---
 published: true
+layout: default
 permalink: /pl/zasady/polityka-prywatnosci.html
 redirect_from:
   - /zasady/

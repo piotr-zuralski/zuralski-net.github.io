@@ -1,4 +1,5 @@
 ---
+layout: redirect
 published: true
 permalink: /pl/oferta/it.html
 redirect_from:

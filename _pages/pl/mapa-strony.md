@@ -1,5 +1,6 @@
 ---
 published: true
+layout: default
 permalink: /pl/mapa-strony.html
 redirect_from:
   - /mapa-strony/

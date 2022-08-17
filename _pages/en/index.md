@@ -1,5 +1,6 @@
 ---
 published: true
+layout: redirect
 permalink: /en/
 redirect_from:
 redirect_to: https://piotr.zuralski.net/en/companys-data.html
