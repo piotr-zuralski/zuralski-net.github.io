@@ -1,0 +1,65 @@
+name: pages-build-deployment
+
+on:
+  pull_request:
+    paths:
+    - 'k8s/**'
+    - '.github/workflows/*'
+    - 'Gemfile.lock'
+    - 'Gemfile'
+    - 'Rakefile'
+    - '.ruby-version'
+    - '_config.yml'
+    - '_assets/*'
+    - '_data/*'
+    - '_includes/*'
+    - '_layouts/*'
+    - '_pages/*'
+
+
+env:
+  JEKYLL_ENV: "production"
+  JEKYLL_DESTINATION: "./_site"
+
+permissions:
+  contents: read
+  pages: read
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+      - uses: ruby/setup-ruby@v1
+        if: ${{ github.actor != 'nektos/act' }}
+        with:
+          bundler-cache: true
+      - uses: ruby/setup-ruby@v1
+        if: ${{ github.actor == 'nektos/act' }}
+        with:
+          bundler-cache: false
+      - if: ${{ github.actor == 'nektos/act' }}
+        run: bundle install
+      - name: Setup Pages
+        if: ${{ github.actor != 'nektos/act' }}
+        id: pages
+        uses: actions/configure-pages@v1
+      - run: env
+      - name: build jekyll
+        run: bundle exec rake
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OCTOKIT_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Validate sitemap.xml
+        uses: cobraz/parse-sitemap@v1.0.1
+        with:
+          sitemap-url: file://${{ env.GITHUB_WORKSPACE }}/${{ env.JEKYLL_DESTINATION }}/sitemap.xml

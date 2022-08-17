@@ -49,12 +49,11 @@ robots: noindex,follow
     <li>{{ k | jsonify }}</li>
   {% endfor %}
   {% for k in assets %}
-    <li>{{ k['0'] | jsonify }} {{ k['1'] | jsonify }}</li>
+    <li>{{ k['0'] | jsonify }} {{ k['1'] | jsonify }}</li> 
   {% endfor %}
 </ul>
 <pre>
-  {{ asset['main.css'].filename | jsonify }}
-  {% asset 'main.js' %}
+  {{ asset['main.css'].filename | jsonify }} 
 </pre>
 
 <p>
