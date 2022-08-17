@@ -24,7 +24,7 @@ group :jekyll_plugins do
   # gem "jekyll-coffeescript"
   # gem "jekyll-optional-front-matter"
   # gem "jekyll-gist"
-  # gem "jekyll-github-metadata"
+  # gem "jekyll-github-metadata" 
 end
 
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]

@@ -293,7 +293,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
-  x86_64-linux
+  x86_64-linux 
 
 DEPENDENCIES
   github-pages
