@@ -129,14 +129,31 @@ sass:
   load_paths: []
 
 assets:
-  compression: true
+  digest: true
+  precompile: []
+  source_maps: false
+  destination: '/assets'
+  digest_algorithm: 'sha512'
+  compression: false
+  raw_precompile: []
+  full_url: false
+  gzip: false
   compressors:
     uglifier:
+      comments: false
       harmony: true
-  digest: true
+  caching:
+    path: '.jekyll-cache/assets'
+    enabled: true
+    type: 'file'
+  cdn:
+    baseurl: false,
+    destination: false
+    url: null
   defaults:
-    integrity:
-      {css,img,js,sass,scss}: true
+    js: { integrity: true }
+    css: { integrity: true }
+    img: { integrity: true }
   sources:
     - _assets/css/
     - _assets/scss/
