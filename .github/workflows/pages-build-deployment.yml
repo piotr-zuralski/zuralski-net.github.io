@@ -38,15 +38,8 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v1
-      - run: |
-          echo "${{ steps.deployment.outputs.page_url }}"
-          echo "${{ steps.pages.outputs.base_path }}"
       - name: build jekyll
-        run: |
-          echo "JEKYLL_ENV: $JEKYLL_ENV ${{ env.JEKYLL_ENV }}"
-          echo "JEKYLL_DESTINATION: $JEKYLL_DESTINATION ${{ env.JEKYLL_DESTINATION }}"
-          env 
-          bundle exec rake
+        run: bundle exec rake
         env:
           JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OCTOKIT_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -54,7 +47,7 @@ jobs:
         if: ${{ success() }}
         uses: actions/upload-pages-artifact@v1.0.3
         with:
-          path: $JEKYLL_DESTINATION
+          path: ${{ env.JEKYLL_DESTINATION }}
 
   deploy:
     needs: build
