@@ -59,31 +59,10 @@ unpublished: false
 
 defaults:
   - scope:
-      path: "assets/css/*"
-    values:
-      layout: null
-      search: exclude
-      sitemap: false
-      stylesheet: true
-  - scope:
-      path: "assets/scss/*"
-    values:
-      layout: null
-      search: exclude
-      sitemap: false
-      stylesheet: true
-  - scope:
-      path: "assets/js/*"
-    values:
-      layout: null
-      search: exclude
-      sitemap: false
-      javascript: true
-  - scope:
       path: "" # an empty string here means all files in the project
     values:
       #      permalink: /:locale/:categories/:title:output_ext
-      layout: "default"
+      layout: null
       author: "zuralski.net"
   - scope:
       path: "./_pages/"
@@ -122,6 +101,8 @@ exclude:
   - "setup.sh"
   - "vendor"
   - "Rakefile"
+  - "assets/"
+  - "assets/css/style.scss"
 
 include:
   - "_pages"
@@ -156,7 +137,7 @@ assets:
     integrity:
       {css,img,js}: true
   sources:
-    - _assets/css
-    - _assets/scss
-    - _assets/sass
-    - _assets/js
+    - _assets/css/
+    - _assets/scss/
+    - _assets/sass/
+    - _assets/js/
