@@ -47,9 +47,7 @@ jobs:
           echo "JEKYLL_DESTINATION: $JEKYLL_DESTINATION ${{ env.JEKYLL_DESTINATION }}"
           env 
           bundle exec rake
-        env: 
-          JEKYLL_ENV: $JEKYLL_ENV
-          JEKYLL_DESTINATION: $JEKYLL_DESTINATION
+        env:
           JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OCTOKIT_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload GitHub Pages artifact
