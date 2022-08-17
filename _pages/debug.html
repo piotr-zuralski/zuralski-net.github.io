@@ -49,6 +49,9 @@ robots: noindex,follow
     <li>{{ assets[k] }}</li>
   {% endfor %}
 </ul>
+<pre>
+  {{ asset['main.css'] }}
+</pre>
 
 <p>
     site.locale: {{ site.locale | jsonify }}<br/>
