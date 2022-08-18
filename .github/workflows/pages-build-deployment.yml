@@ -53,7 +53,7 @@ jobs:
         env: 
           JEKYLL_ENV: development
       - run: rm -rf ${{ env.JEKYLL_DESTINATION }} .jekyll-cache
-      - name: build jekyll
+      - name: build jekyll production
         run: bundle exec rake
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

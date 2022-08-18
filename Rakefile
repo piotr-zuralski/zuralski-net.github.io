@@ -33,6 +33,7 @@ task :build => [:clean] do
 end
 
 task :minify do
+  puts "Minifying JS"
   _uglifierJS = Uglifier.new(:harmony => true)
   Find.find(ASSETS_DIR) do |filename|
     next if filename == "." or filename == ".."
@@ -42,6 +43,8 @@ task :minify do
     end
   end
   
+  puts "Minifying CSS"
+  puts "-- none"
 end
 
 task :generate_version do

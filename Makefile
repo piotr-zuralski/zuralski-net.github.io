@@ -20,6 +20,9 @@ install-and-serve: serve
 build: clean
 	act --container-architecture "linux/amd64" --secret-file ".secrets.local" --env-file ".env.local" --reuse -j build
 
+build_local: clean
+	bundle exec rake
+
 test:
 	# act -P ubuntu-latest=nektos/act-environments-ubuntu:18.04
 	act --container-architecture "linux/amd64" --secret-file ".secrets.local" --env-file ".env.local" --reuse -j lint
