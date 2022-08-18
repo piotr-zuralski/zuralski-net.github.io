@@ -64,6 +64,14 @@ defaults:
       #      permalink: /:locale/:categories/:title:output_ext
       author: "zuralski.net"
   - scope:
+      path: "assets/css"
+    values:
+      stylesheet: true
+  - scope:
+      path: "assets/js"
+    values:
+      javascript: true
+  - scope:
       path: "./_pages/"
       type: "pages"
     values:
