@@ -1,0 +1,18 @@
+{
+  "parse": {
+    "shebang": false
+  },
+  "compress": {
+    "global_defs": {
+      "@alert": "console.log"
+    }
+  },
+  "mangle": true,
+  "output": {
+    "beautify": false,
+    "shebang": false
+  },
+  "sourceMap": false,
+  "toplevel": true,
+  "warnings": true
+}

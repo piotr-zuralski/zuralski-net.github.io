@@ -39,7 +39,7 @@ task :minify do
 
     if (filename.include? ".js" and !filename.include? ".json")
       puts "Minifying JS - " + filename
-      system("yarn run uglifyjs --compress --mangle -- #{filename} --output #{filename}")
+      system("yarn run uglifyjs -- #{filename} --output #{filename} --config-file config.uglifyjs.json")
 
     elsif filename.include? ".css"
       puts "Minifying CSS - " + filename

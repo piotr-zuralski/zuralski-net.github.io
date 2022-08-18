@@ -111,6 +111,7 @@ exclude:
   - "vendor/"
   - "Rakefile"
   - "node_modules/"
+  - "config.uglifyjs.json"
 
 include:
   - "_pages"
