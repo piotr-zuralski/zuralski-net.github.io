@@ -67,10 +67,12 @@ defaults:
       path: "assets/css"
     values:
       stylesheet: true
+      output: true
   - scope:
       path: "assets/js"
     values:
       javascript: true
+      output: true
   - scope:
       path: "./_pages/"
       type: "pages"
@@ -108,7 +110,6 @@ exclude:
   - "setup.sh"
   - "vendor"
   - "Rakefile"
-  - "assets/"
 
 include:
   - "_pages"
