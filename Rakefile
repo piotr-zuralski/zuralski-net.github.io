@@ -1,6 +1,5 @@
 require "rubygems"
 require "bundler/setup"
-require "uglifier"
 require "find"
 
 JEKYLL_DESTINATION = ENV["JEKYLL_DESTINATION"] = File.expand_path(ENV.fetch("JEKYLL_DESTINATION", "./_site")) + "/"
@@ -29,28 +28,30 @@ task :build => [:clean] do
     abort "Please set the JEKYLL_GITHUB_TOKEN environment variable"
   end
 
-  `bundle exec jekyll build --trace --verbose --destination #{JEKYLL_DESTINATION}`
+  system("bundle exec jekyll build --trace --verbose --destination #{JEKYLL_DESTINATION}")
 end
 
 task :minify do
-  puts "Minifying JS"
-  _uglifierJS = Uglifier.new(:harmony => true)
+  system("yarn install")
+
   Find.find(ASSETS_DIR) do |filename|
     next if filename == "." or filename == ".."
-    if (filename.include? ".js" and !filename.include? ".json") 
-      puts filename
-      _uglifierJS.compile(File.read(filename))
+
+    if (filename.include? ".js" and !filename.include? ".json")
+      puts "Minifying JS - " + filename
+      system("yarn run uglifyjs --compress --mangle -- #{filename} --output #{filename}")
+
+    elsif filename.include? ".css"
+      puts "Minifying CSS - " + filename
+      system("yarn run csso --input #{filename} --output #{filename}")
     end
   end
-  
-  puts "Minifying CSS"
-  puts "-- none"
 end
 
 task :generate_version do
-  revision = `git rev-parse --verify HEAD`.strip!
-  revisionShort = `git rev-parse --short HEAD`.strip!
-  branch = `git rev-parse --abbrev-ref HEAD`.strip!
+  revision = `git rev-parse --verify HEAD`.strip
+  revisionShort = `git rev-parse --short HEAD`.strip
+  branch = `git rev-parse --abbrev-ref HEAD`.strip
 
   version = branch + "@" + revisionShort
 

@@ -108,8 +108,9 @@ exclude:
   - ".svn"
   - ".gitkeep"
   - "setup.sh"
-  - "vendor"
+  - "vendor/"
   - "Rakefile"
+  - "node_modules/"
 
 include:
   - "_pages"

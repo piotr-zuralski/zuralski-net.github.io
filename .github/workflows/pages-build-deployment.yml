@@ -26,6 +26,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      # - name: Get yarn cache directory path
+      #   id: yarn-cache-dir-path
+      #   run: echo "::set-output name=dir::$(yarn cache dir || yarn config get cacheFolder)"
+      # - uses: actions/cache@v3
+      #   id: yarn-cache
+      #   with:
+      #     path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+      #     key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-yarn-
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
+          cache: 'yarn'
+      - 
+        # if: ${{ steps.yarn-cache.outputs.cache-hit != 'true' }}
+        run: yarn install --frozen-lockfile
+      - run: yarn test
+
       - uses: actions/cache@v3
         with:
           path: vendor/bundle
@@ -49,7 +68,7 @@ jobs:
         id: pages
         uses: actions/configure-pages@v1
       - name: build jekyll development
-        run: bundle exec jekyll build --trace --verbose --destination ${{ env.JEKYLL_DESTINATION }}
+        run: bundle exec rake
         env: 
           JEKYLL_ENV: development
       - run: rm -rf ${{ env.JEKYLL_DESTINATION }} .jekyll-cache
