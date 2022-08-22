@@ -65,7 +65,7 @@ jobs:
       - name: Setup Pages
         if: ${{ github.actor != 'nektos/act' }}
         id: pages
-        uses: actions/configure-pages@v1
+        uses: actions/configure-pages@v2
       - name: build jekyll development
         run: bundle exec rake
         env: 
