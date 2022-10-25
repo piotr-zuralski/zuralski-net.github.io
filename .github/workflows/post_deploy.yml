@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v1
+        uses: actions/configure-pages@v2
       - name: Check status
         run: curl --location --fail $SITEMAP_URL
 
