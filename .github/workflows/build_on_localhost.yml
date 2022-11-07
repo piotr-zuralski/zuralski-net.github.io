@@ -34,7 +34,7 @@ jobs:
     if: ${{ success() }}
     steps:
       - name: Build Jekyll
-        uses: actions/jekyll-build-pages@v1.0.5
+        uses: actions/jekyll-build-pages@v1.0.6
         with:
           token: $JEKYLL_GITHUB_TOKEN
           verbose: true
