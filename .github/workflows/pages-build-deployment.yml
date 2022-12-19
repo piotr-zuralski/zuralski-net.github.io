@@ -87,7 +87,7 @@ jobs:
       #   run: bundle exec rake post_build
       - name: Upload GitHub Pages artifact
         if: ${{ success() && github.actor != 'nektos/act' }}
-        uses: actions/upload-pages-artifact@v1.0.4
+        uses: actions/upload-pages-artifact@v1.0.7
         with:
           path: ${{ env.JEKYLL_DESTINATION }}
 
