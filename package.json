@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "csso-cli": "^4.0.1",
+    "csso-cli": "^4.0.2",
     "uglify-js": "^3.17.4"
   }
 }

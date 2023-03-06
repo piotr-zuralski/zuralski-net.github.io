@@ -57,10 +57,10 @@ css-tree@~2.2.0:
     mdn-data "2.0.28"
     source-map-js "^1.0.1"
 
-csso-cli@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/csso-cli/-/csso-cli-4.0.1.tgz#451f551d94a96ec676dadc036adfbcbcf1042778"
-  integrity sha512-T5kLxv6Z439JzWd0v1pTTsqLcb0XrnzlUqavyLh770GZEPjgkqc/3yyGWx71bRHz3h4o0zppPDXUAdGczHahMw==
+csso-cli@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/csso-cli/-/csso-cli-4.0.2.tgz#4c056c4fddd9cb26583953dc74db46c8f64fb098"
+  integrity sha512-p/VipA45w8EmS8Lv6wGtE+UdsbFlqUBGhL9FCTGKxd5dC07mtg3BbZaMzMh0X+oIl2JUGR/mPx5YzuNnTM2a3w==
   dependencies:
     chokidar "^3.5.3"
     clap "^3.1.1"
