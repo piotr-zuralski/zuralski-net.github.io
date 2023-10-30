@@ -62,15 +62,14 @@ jobs:
           bundler-cache: false
       - if: ${{ github.actor == 'nektos/act' }}
         run: bundle install
-      - name: Setup Pages
-        if: ${{ github.actor != 'nektos/act' }}
-        id: pages
-        uses: actions/configure-pages@v2
+
       - name: build jekyll development
         run: bundle exec rake
         env: 
           JEKYLL_ENV: development
+
       - run: rm -rf ${{ env.JEKYLL_DESTINATION }} .jekyll-cache
+
       - name: build jekyll production
         run: bundle exec rake
         env:
@@ -85,11 +84,26 @@ jobs:
       #     OCTOKIT_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # - name: post build
       #   run: bundle exec rake post_build
-      - name: Upload GitHub Pages artifact
-        if: ${{ success() && github.actor != 'nektos/act' }}
-        uses: actions/upload-pages-artifact@v1.0.4
+
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
         with:
-          path: ${{ env.JEKYLL_DESTINATION }}
+          apiToken: ${{ secrets.CLOUDFLARE_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: zuralski-net
+          directory: ${{ env.JEKYLL_DESTINATION }}
+#          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+#          branch: main
+
+#      - name: Setup Pages
+#        if: ${{ github.actor != 'nektos/act' }}
+#        id: pages
+#        uses: actions/configure-pages@v2
+#      - name: Upload GitHub Pages artifact
+#        if: ${{ success() && github.actor != 'nektos/act' }}
+#        uses: actions/upload-pages-artifact@v1.0.4
+#        with:
+#          path: ${{ env.JEKYLL_DESTINATION }}
 
   deploy:
     needs: build
