@@ -105,14 +105,14 @@ jobs:
 #        with:
 #          path: ${{ env.JEKYLL_DESTINATION }}
 
-  deploy:
-    needs: build
-    if: ${{ success() }}
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
+#  deploy:
+#    needs: build
+#    if: ${{ success() }}
+#    environment:
+#      name: github-pages
+#      url: ${{ steps.deployment.outputs.page_url }}
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Deploy to GitHub Pages
+#        id: deployment
+#        uses: actions/deploy-pages@v1
