@@ -77,21 +77,42 @@ jobs:
           JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OCTOKIT_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-#  release:
-#    needs: build
-#    runs-on: ubuntu-latest
-#
-#    steps:
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
       - name: Version get latest tag
+        uses: actions/github-script@v2
         id: latesttag
-        run: |
-          LASTEST_TAG=$(git describe --tags --abbrev=0 || true)
-          echo "LASTEST_TAG=$LASTEST_TAG" >> $GITHUB_ENV
-          if [ -z "$LASTEST_TAG" ]
-          then
-            echo "No tag found. Using default version 0.0.0"
-            echo "LASTEST_TAG=0.0.0" >> $GITHUB_ENV
-          fi
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            async function getLatestTag() {
+              const {data: tags} = await github.repos.listTags({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                per_page: 100
+              });
+
+              const tagsMaped = tags.map(e => e.name);
+              const tagsSorted = tagsMaped
+                .sort(compareVersions)
+                .reverse()
+
+              return tagsSorted[0];
+            }
+
+            try {
+              const LASTEST_TAG = await getLatestTag();
+              console.log(`LASTEST_TAG=${LASTEST_TAG}`);
+              core.setOutput("LASTEST_TAG", latestTag);
+            } catch (e) { }
+
+            if (!LASTEST_TAG) {
+              console.log("No tag found. Using default version 0.1.0");
+              console.log("LASTEST_TAG=0.0.1");
+              core.setOutput("LASTEST_TAG", "0.0.1");
+            }
 
       - name: Version increment
         run: |
@@ -114,6 +135,10 @@ jobs:
           draft: false
           prerelease: true
 
+      - name: Archive production artifacts
+        run: |
+          zip -r site.zip ${{ env.JEKYLL_DESTINATION }}
+
       - name: Release asset upload
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
@@ -121,15 +146,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ env.JEKYLL_DESTINATION }}
+          asset_path: ./site.zip
           asset_name: site.zip
           asset_content_type: application/zip
 
-#  deploy:
-#    needs: release
-#    runs-on: ubuntu-latest
-#
-#    steps:
+  deploy:
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
       - name: GitHub Pages setup
         uses: actions/configure-pages@v2
         id: pages
