@@ -16,7 +16,6 @@ on:
     - '_layouts/*'
     - '_pages/*'
 
-
 env:
   JEKYLL_ENV: "production"
   JEKYLL_DESTINATION: "./_site"
@@ -27,33 +26,38 @@ permissions:
   pages: read
   id-token: write
 
+concurrency:
+  group: "pr-${{ github.ref }}"
+  cancel-in-progress: true
+
 jobs:
   build_pr:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - uses: actions/cache@v3
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-gems-
+
       - uses: ruby/setup-ruby@v1
         if: ${{ github.actor != 'nektos/act' }}
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
           bundler-cache: true
+
       - uses: ruby/setup-ruby@v1
         if: ${{ github.actor == 'nektos/act' }}
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
           bundler-cache: false
+
       - if: ${{ github.actor == 'nektos/act' }}
         run: bundle install
-      - name: Setup Pages
-        if: ${{ github.actor != 'nektos/act' }}
-        id: pages
-        uses: actions/configure-pages@v2
+
       - name: build jekyll
         run: bundle exec rake
         env:

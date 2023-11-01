@@ -80,6 +80,11 @@ jobs:
           JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OCTOKIT_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Sitemap XML validate
+        uses: cobraz/parse-sitemap@v1.1.1
+        with:
+          sitemap-url: file://${{ env.GITHUB_WORKSPACE }}/${{ env.JEKYLL_DESTINATION }}/sitemap.xml
+
       - name: Production artifacts archive
         run: zip -r site.zip ${{ env.JEKYLL_DESTINATION }}
 
