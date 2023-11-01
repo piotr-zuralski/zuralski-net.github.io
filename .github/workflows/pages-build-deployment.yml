@@ -159,6 +159,7 @@ jobs:
             echo "LASTEST_TAG=$LASTEST_TAG" >> $GITHUB_ENV
             echo "VERSION=$VERSION" >> $GITHUB_ENV
             echo "VERSION_TIME=$VERSION_TIME" >> $GITHUB_ENV
+            echo "RELEASE_INFO=$RELEASE_INFO" >> $GITHUB_ENV
             echo "${RELEASE_INFO}" > ./_site/release.json
         shell: bash
         env:
@@ -205,7 +206,7 @@ jobs:
           path: ${{ env.JEKYLL_DESTINATION }}
 
       - name: env vars setup
-        run: echo "${RELEASE_INFO}" > ./_site/release.json
+        run: echo "${{ env.RELEASE_INFO }}" > ./_site/release.json
         shell: bash
         env:
           RELEASE_INFO: ${{ steps.version_info.outputs.RELEASE_INFO }}
