@@ -19,7 +19,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: "pages-${{ github.ref }}"
   cancel-in-progress: true
 
 jobs:
@@ -101,9 +101,12 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Version get latest tag
+      - name: semver install
+        run: npm install semver
+
+      - name: Version info
         uses: actions/github-script@v5
-        id: latesttag
+        id: version_info
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -131,43 +134,41 @@ jobs:
             console.log(`LASTEST_TAG=${LASTEST_TAG}`);
             core.setOutput("LASTEST_TAG", LASTEST_TAG);
 
-      - name: Node.js setup
-        uses: actions/setup-node@v3
-        with:
-          node-version: 'lts/*'
-
-      - name: semver install
-        run: npm install semver
-
-      - name: Version increment
-        uses: actions/github-script@v5
-        id: versionincrement
-        with:
-          script: |
-            const semver = require('semver');
-            const VERSION = semver.inc(process.env.LASTEST_TAG, 'patch');
-            console.log(`VERSION=${VERSION}`);
-            core.setOutput("VERSION", VERSION);
-
             const VERSION_TIME = new Date().toISOString();
             console.log(`VERSION_TIME=${VERSION_TIME}`);
             core.setOutput("VERSION_TIME", VERSION_TIME);
-        env:
-          LASTEST_TAG: ${{ steps.latesttag.outputs.LASTEST_TAG }}
+
+            const semver = require('semver');
+            const VERSION = semver.inc(LASTEST_TAG, 'patch');
+            console.log(`VERSION=${VERSION}`);
+            core.setOutput("VERSION", VERSION);
+
+            let releaseInfo = {
+              releasedAt: VERSION_TIME,
+              branch: "${{ github.ref_name }}",
+              revision: "${{ github.sha }}".substring(0, 8),
+              version: VERSION,
+            };
+            releaseInfo = JSON.stringify(releaseInfo);
+
+            console.log(`RELEASE_INFO=${releaseInfo}`);
+            core.setOutput("RELEASE_INFO", releaseInfo);
 
       - name: env vars setup
         run: |
             echo "LASTEST_TAG=$LASTEST_TAG" >> $GITHUB_ENV
             echo "VERSION=$VERSION" >> $GITHUB_ENV
             echo "VERSION_TIME=$VERSION_TIME" >> $GITHUB_ENV
+            echo "${RELEASE_INFO}" > ./_site/release.json
         shell: bash
         env:
-          LASTEST_TAG: ${{ steps.latesttag.outputs.LASTEST_TAG }}
-          VERSION: ${{ steps.versionincrement.outputs.VERSION }}
-          VERSION_TIME: ${{ steps.versionincrement.outputs.VERSION_TIME }}
+          LASTEST_TAG: ${{ steps.version_info.outputs.LASTEST_TAG }}
+          VERSION: ${{ steps.version_info.outputs.VERSION }}
+          VERSION_TIME: ${{ steps.version_info.outputs.VERSION_TIME }}
+          RELEASE_INFO: ${{ steps.version_info.outputs.RELEASE_INFO }}
 
       - name: Release create
-        id: create_release
+        id: release_create
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -184,12 +185,11 @@ jobs:
           path: ./
 
       - name: Release asset upload
-        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ steps.release_create.outputs.upload_url }}
           asset_path: ./site.zip
           asset_name: site.zip
           asset_content_type: application/zip
@@ -206,7 +206,7 @@ jobs:
 
 #      - name: GitHub Pages setup
 #        uses: actions/configure-pages@v2
-#        id: pages
+#        id: github_pages_setup
 #        if: ${{ github.actor != 'nektos/act' }}
 #
 #      - name: GitHub Pages upload artifact
@@ -235,11 +235,11 @@ jobs:
           CLOUDFLARE_TOKEN: ${{ secrets.CLOUDFLARE_TOKEN }}
 
       - name: Sitemap check status
-        run: curl --location --fail ${{ env.SITEMAP_URL }}
+        run: curl -sS --location --fail ${{ env.SITEMAP_URL }}
 
       - name: Sitemap ping Bing
-        run: curl --location --fail https://www.bing.com/ping?sitemap=${{ env.SITEMAP_URL }} >/dev/null 2>&1 || true
+        run: curl -sS --location --fail https://www.bing.com/ping?sitemap=${{ env.SITEMAP_URL }} >/dev/null 2>&1 || true
 
       - name: Sitemap ping Google
-        run: curl --location --fail https://www.google.com/webmasters/tools/ping?sitemap=${{ env.SITEMAP_URL }} >/dev/null 2>&1 || true
+        run: curl -sS --location --fail https://www.google.com/webmasters/tools/ping?sitemap=${{ env.SITEMAP_URL }} >/dev/null 2>&1 || true
 

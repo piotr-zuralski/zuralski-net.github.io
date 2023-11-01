@@ -11,21 +11,21 @@ robots: noindex,follow
 <p>static_files</p>
 <ul>
     {% for file in site.static_files %}
-        <li><a href="{{ file.path }}?v={{ file.modified_time | date: '%s' }}"">{{ file.path }}?v={{ file.modified_time | date: '%s' }}</a></li>
+        <li><a href="{{ file.path }}?v={{ file.modified_time | date: '%s' }}">{{ file.path }}?v={{ file.modified_time | date: '%s' }}</a></li>
     {% endfor %}
 </ul>
 
 <p>static_files stylesheet</p>
 <ul>
     {% for file in _stylesheet %}
-        <li><a href="{{ file.path }}?v={{ file.modified_time | date: '%s' }}"">{{ file.path }}?v={{ file.modified_time | date: '%s' }}</a></li>
+        <li><a href="{{ file.path }}?v={{ file.modified_time | date: '%s' }}">{{ file.path }}?v={{ file.modified_time | date: '%s' }}</a></li>
     {% endfor %}
 </ul>
 
 <p>static_files javascript</p>
 <ul>
     {% for file in _javascript %}
-        <li><a href="{{ file.path }}?v={{ file.modified_time | date: '%s' }}"">{{ file.path }}?v={{ file.modified_time | date: '%s' }}</a></li>
+        <li><a href="{{ file.path }}?v={{ file.modified_time | date: '%s' }}">{{ file.path }}?v={{ file.modified_time | date: '%s' }}</a></li>
     {% endfor %}
 </ul>
 
@@ -49,14 +49,14 @@ robots: noindex,follow
 </p>
 
 <div>
-  <p>jekyll debug: <a href="javascript:void();" onclick="jekyllDebugFormat();">format jekyll</a></p>
-  <p>content: <pre class="jekyll-debug" id="jekyll-debug-content">{{ content | jsonify | escape }}</pre></p>
-  <p>page: <pre class="jekyll-debug" id="jekyll-debug-page">{{ page | jsonify | escape }}</pre></p>
-  <p>jekyll: <pre class="jekyll-debug" id="jekyll-debug-jekyll">{{ jekyll | jsonify | escape }}</pre></p>
-  <p>layout: <pre class="jekyll-debug" id="jekyll-debug-layout">{{ layout | jsonify | escape }}</pre></p>
-  <p>paginator: <pre class="jekyll-debug" id="jekyll-debug-paginator">{{ paginator | jsonify | escape }}</pre></p>
-  <p>site: <pre class="jekyll-debug" id="jekyll-debug-site">{{ site | jsonify | escape }}</pre></p>
-  <p>static_files: <pre class="jekyll-debug" id="jekyll-debug-static_files">{{ site.static_files | jsonify | escape }}</pre></p>
+  <span>jekyll debug: <a href="javascript:void();" onclick="jekyllDebugFormat();">format jekyll</a></span>
+  <span>content: <pre class="jekyll-debug" id="jekyll-debug-content">{{ content | jsonify | escape }}</pre></span>
+  <span>page: <pre class="jekyll-debug" id="jekyll-debug-page">{{ page | jsonify | escape }}</pre></span>
+  <span>jekyll: <pre class="jekyll-debug" id="jekyll-debug-jekyll">{{ jekyll | jsonify | escape }}</pre></span>
+  <span>layout: <pre class="jekyll-debug" id="jekyll-debug-layout">{{ layout | jsonify | escape }}</pre></span>
+  <span>paginator: <pre class="jekyll-debug" id="jekyll-debug-paginator">{{ paginator | jsonify | escape }}</pre></span>
+  <span>site: <pre class="jekyll-debug" id="jekyll-debug-site">{{ site | jsonify | escape }}</pre></span>
+  <span>static_files: <pre class="jekyll-debug" id="jekyll-debug-static_files">{{ site.static_files | jsonify | escape }}</pre></span>
 </div>
 
 <pre>
