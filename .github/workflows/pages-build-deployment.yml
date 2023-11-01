@@ -117,7 +117,8 @@ jobs:
           script: |
             async function getLatestTag() {
               const tagsAll = await github.paginate(
-                github.rest.repos.listTags{
+                github.rest.repos.listTags,
+                {
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   per_page: 100
