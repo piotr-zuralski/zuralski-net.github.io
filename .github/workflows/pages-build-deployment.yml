@@ -204,6 +204,12 @@ jobs:
           name: dir-site-${{ github.sha }}
           path: ${{ env.JEKYLL_DESTINATION }}
 
+      - name: env vars setup
+        run: echo "${RELEASE_INFO}" > ./_site/release.json
+        shell: bash
+        env:
+          RELEASE_INFO: ${{ steps.version_info.outputs.RELEASE_INFO }}
+
 #      - name: GitHub Pages setup
 #        uses: actions/configure-pages@v2
 #        id: github_pages_setup
