@@ -125,7 +125,7 @@ jobs:
               const tagsAll = await github.paginate(opts);
               console.log("tagsAll", tagsAll);
 
-              let tags = tags.map(e => e.name);
+              let tags = tagsAll.map(e => e.name);
               console.log("tags", tags);
 
               const tag = tags.slice(-1);
