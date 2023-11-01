@@ -116,18 +116,14 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             async function getLatestTag() {
-              const tags = await github.paginate(
-                github.rest.repos.listTags,
-                {
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  per_page: 100
-                }, (response) => response.data
-              );
-              const tagsMaped = tags.map(e => e.name);
-              const tagsSorted = tagsMaped.sort().reverse();
-
-              return tagsSorted[0];
+              const opts = github.rest.repos.listTags({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                per_page: 100
+              });
+              const tags = await github.paginate(opts).map(e => e.name);
+              const tag = tags.slice(-1);
+              return tag;
             }
 
             const LASTEST_TAG = await getLatestTag();
