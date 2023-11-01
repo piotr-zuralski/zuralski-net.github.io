@@ -95,9 +95,7 @@ jobs:
               });
 
               const tagsMaped = tags.map(e => e.name);
-              const tagsSorted = tagsMaped
-                .sort()
-                .reverse()
+              const tagsSorted = tagsMaped.sort().reverse();
 
               return tagsSorted[0];
             }
@@ -110,7 +108,7 @@ jobs:
 
             if (typeof LASTEST_TAG === "undefined") {
               const LASTEST_TAG = "0.0.1";
-              console.log("No tag found. Using default version 0.0.1");
+              console.log("No tag found. Using default version " + LASTEST_TAG);
             }
 
             try {
