@@ -206,10 +206,11 @@ jobs:
 
       - name: env vars setup
         run: |
-            echo "RELEASE_INFO_1: ${{ steps.version_info.outputs.RELEASE_INFO }}"
-            echo "RELEASE_INFO_2: ${{ env.RELEASE_INFO }}"
+            echo "RELEASE_INFO: ${{ env.RELEASE_INFO }}"
             echo "${{ env.RELEASE_INFO }}" > ./_site/release.json
         shell: bash
+        env:
+          RELEASE_INFO: ${{ needs.release.outputs.RELEASE_INFO }}
 
 #      - name: GitHub Pages setup
 #        uses: actions/configure-pages@v2
@@ -245,8 +246,8 @@ jobs:
         run: curl -sS --location --fail ${{ env.SITEMAP_URL }}
 
       - name: Sitemap ping Bing
-        run: curl -sS --location --fail https://www.bing.com/ping?sitemap=${{ env.SITEMAP_URL }} >/dev/null 2>&1 || true
+        run: curl -sS -w "%{http_code}" --location --fail https://www.bing.com/ping?sitemap=${{ env.SITEMAP_URL }} -o /dev/null || true
 
       - name: Sitemap ping Google
-        run: curl -sS --location --fail https://www.google.com/webmasters/tools/ping?sitemap=${{ env.SITEMAP_URL }} >/dev/null 2>&1 || true
+        run: curl -sS -w "%{http_code}" --location --fail https://www.google.com/webmasters/tools/ping?sitemap=${{ env.SITEMAP_URL }} -o /dev/null || true
 
