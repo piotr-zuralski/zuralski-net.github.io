@@ -160,7 +160,6 @@ jobs:
             echo "VERSION=$VERSION" >> $GITHUB_ENV
             echo "VERSION_TIME=$VERSION_TIME" >> $GITHUB_ENV
             echo "RELEASE_INFO=$RELEASE_INFO" >> $GITHUB_ENV
-            echo "${RELEASE_INFO}" > ./_site/release.json
         shell: bash
         env:
           LASTEST_TAG: ${{ steps.version_info.outputs.LASTEST_TAG }}
