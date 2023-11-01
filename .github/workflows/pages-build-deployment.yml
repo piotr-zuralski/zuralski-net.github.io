@@ -178,7 +178,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: file-site-{{ github.sha }}
-          path: ./site.zip
+          path: ./
 
       - name: Release asset upload
         id: upload-release-asset
@@ -199,7 +199,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: dir-site-{{ github.sha }}
-          path: ${{ env.JEKYLL_DESTINATION }}
+          path: ./
 
       - name: GitHub Pages setup
         uses: actions/configure-pages@v2
