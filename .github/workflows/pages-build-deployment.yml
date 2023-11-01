@@ -205,10 +205,11 @@ jobs:
           path: ${{ env.JEKYLL_DESTINATION }}
 
       - name: env vars setup
-        run: echo "${{ env.RELEASE_INFO }}" > ./_site/release.json
+        run: |
+            echo "RELEASE_INFO_1: ${{ steps.version_info.outputs.RELEASE_INFO }}"
+            echo "RELEASE_INFO_2: ${{ env.RELEASE_INFO }}"
+            echo "${{ env.RELEASE_INFO }}" > ./_site/release.json
         shell: bash
-        env:
-          RELEASE_INFO: ${{ steps.version_info.outputs.RELEASE_INFO }}
 
 #      - name: GitHub Pages setup
 #        uses: actions/configure-pages@v2
