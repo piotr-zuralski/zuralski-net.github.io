@@ -96,7 +96,7 @@ jobs:
 
               const tagsMaped = tags.map(e => e.name);
               const tagsSorted = tagsMaped
-                .sort(compareVersions)
+                .sort()
                 .reverse()
 
               return tagsSorted[0];
