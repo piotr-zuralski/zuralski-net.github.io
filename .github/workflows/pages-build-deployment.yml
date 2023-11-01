@@ -105,7 +105,7 @@ jobs:
             try {
               const LASTEST_TAG = await getLatestTag();
               console.log(`LASTEST_TAG=${LASTEST_TAG}`);
-              core.setOutput("LASTEST_TAG", latestTag);
+              core.setOutput("LASTEST_TAG", LASTEST_TAG);
             } catch (e) {
               console.error(e.msg);
               console.error(e);
