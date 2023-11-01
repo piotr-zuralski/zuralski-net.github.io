@@ -24,7 +24,7 @@ jobs:
       - run: bundle exec jekyll build
       # - run: bundle exec jekyll serve
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Automated Change
           file_pattern: 'Gemfile.lock'
