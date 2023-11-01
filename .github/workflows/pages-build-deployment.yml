@@ -25,24 +25,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      # - name: Get yarn cache directory path
-      #   id: yarn-cache-dir-path
-      #   run: echo "::set-output name=dir::$(yarn cache dir || yarn config get cacheFolder)"
-      # - uses: actions/cache@v3
-      #   id: yarn-cache
-      #   with:
-      #     path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-      #     key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-yarn-
-      - uses: actions/setup-node@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Node.js setup
+        uses: actions/setup-node@v3
         with:
           node-version: 'lts/*'
           cache: 'yarn'
-      - 
-        # if: ${{ steps.yarn-cache.outputs.cache-hit != 'true' }}
+
+      - name: Yarn install
         run: yarn install --frozen-lockfile
+        # if: ${{ steps.yarn-cache.outputs.cache-hit != 'true' }}
 
       - uses: actions/cache@v3
         with:
@@ -50,16 +44,21 @@ jobs:
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-gems-
-      - uses: ruby/setup-ruby@v1
+
+      - name: Ruby setup
+        uses: ruby/setup-ruby@v1
         if: ${{ github.actor != 'nektos/act' }}
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
           bundler-cache: true
-      - uses: ruby/setup-ruby@v1
+
+      - name: Ruby setup
+        uses: ruby/setup-ruby@v1
         if: ${{ github.actor == 'nektos/act' }}
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
           bundler-cache: false
+
       - if: ${{ github.actor == 'nektos/act' }}
         run: bundle install
 
@@ -77,14 +76,58 @@ jobs:
           JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OCTOKIT_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: build jekyll production
-      #   run: bundle exec jekyll build --trace --verbose --destination ${{ env.JEKYLL_DESTINATION }}
-      #   env: 
-      #     JEKYLL_ENV: ${{ env.JEKYLL_ENV }}
-      #     JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     OCTOKIT_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # - name: post build
-      #   run: bundle exec rake post_build
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Get latest tag
+      id: latesttag
+      run: |
+        LASTEST_TAG=$(git describe --tags --abbrev=0)
+        echo "LASTEST_TAG=$LASTEST_TAG" >> $GITHUB_ENV
+        if [ -z "$LASTEST_TAG" ]
+        then
+          echo "No tag found. Using default version 0.0.0"
+          echo "LASTEST_TAG=0.0.0" >> $GITHUB_ENV
+        fi
+
+    - name: Increment version and create GitHub Release
+      run: |
+        IFS='.' read -ra ADDR <<< "$LASTEST_TAG"
+        ADDR[2]=$((ADDR[2] + 1))
+        VERSION="${ADDR[0]}.${ADDR[1]}.${ADDR[2]}"
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Release create
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ env.VERSION }}
+        release_name: Release ${{ env.VERSION }} at $(date -u +"%Y-%m-%dT%H:%M:%S.%3NZ")
+        draft: false
+        prerelease: true
+
+  deploy:
+    needs: release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Pages
+        uses: actions/configure-pages@v2
+        id: pages
+        if: ${{ github.actor != 'nektos/act' }}
+        continue-on-error: true
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v1.0.4
+        if: ${{ success() && github.actor != 'nektos/act' }}
+        continue-on-error: true
+        with:
+          path: ${{ env.JEKYLL_DESTINATION }}
 
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@v1
@@ -94,39 +137,3 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: zuralski-net
           directory: ${{ env.JEKYLL_DESTINATION }}
-#          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-#          branch: main
-
-
-
-#      - name: Setup Pages
-#        if: ${{ github.actor != 'nektos/act' }}
-#        id: pages
-#        uses: actions/configure-pages@v2
-
-      - name: Upload GitHub Pages artifact
-        uses: actions/upload-pages-artifact@v1.0.4
-        if: ${{ success() && github.actor != 'nektos/act' }}
-        continue-on-error: true
-        with:
-          path: ${{ env.JEKYLL_DESTINATION }}
-
-      - name: Release
-        uses: fnkr/github-action-ghr@v1
-        env:
-          GHR_COMPRESS: zip
-          GHR_REPLACE: true
-          GHR_PATH: ${{ env.JEKYLL_DESTINATION }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-#  deploy:
-#    needs: build
-#    if: ${{ success() }}
-#    environment:
-#      name: github-pages
-#      url: ${{ steps.deployment.outputs.page_url }}
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Deploy to GitHub Pages
-#        id: deployment
-#        uses: actions/deploy-pages@v1
