@@ -121,8 +121,16 @@ jobs:
                 repo: context.repo.repo,
                 per_page: 100
               });
-              const tags = await github.paginate(opts);
-              const tag = tags.map(e => e.name).slice(-1);
+
+              const tagsAll = await github.paginate(opts);
+              console.log("tagsAll", tagsAll);
+
+              let tags = tags.map(e => e.name);
+              console.log("tags", tags);
+
+              const tag = tags.slice(-1);
+              console.log("tag", tag);
+
               return tag;
             }
 
