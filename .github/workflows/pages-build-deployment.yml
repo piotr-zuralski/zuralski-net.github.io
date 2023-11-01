@@ -106,7 +106,10 @@ jobs:
               const LASTEST_TAG = await getLatestTag();
               console.log(`LASTEST_TAG=${LASTEST_TAG}`);
               core.setOutput("LASTEST_TAG", latestTag);
-            } catch (e) { }
+            } catch (e) {
+              console.error(e.msg);
+              console.error(e);
+            }
 
             if (!LASTEST_TAG) {
               console.log("No tag found. Using default version 0.1.0");
