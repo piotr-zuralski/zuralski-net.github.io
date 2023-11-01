@@ -83,14 +83,14 @@ jobs:
       - name: Artifacts production upload ${{ env.JEKYLL_DESTINATION }}
         uses: actions/upload-artifact@v3
         with:
-          name: dir-site
+          name: dir-site-{{ github.sha }}
           path: ${{ env.JEKYLL_DESTINATION }}
           retention-days: 1
 
       - name: Artifacts production upload site.zip
         uses: actions/upload-artifact@v3
         with:
-          name: file-site.zip
+          name: file-site-{{ github.sha }}
           path: ./site.zip
           retention-days: 1
 
@@ -177,7 +177,8 @@ jobs:
       - name: Artifacts production download site.zip
         uses: actions/download-artifact@v3
         with:
-          name: file-site.zip
+          name: file-site-{{ github.sha }}
+          path: ./site.zip
 
       - name: Release asset upload
         id: upload-release-asset
@@ -197,7 +198,8 @@ jobs:
       - name: Artifacts production download ${{ env.JEKYLL_DESTINATION }}
         uses: actions/download-artifact@v3
         with:
-          name: dir-site
+          name: dir-site-{{ github.sha }}
+          path: ${{ env.JEKYLL_DESTINATION }}
 
       - name: GitHub Pages setup
         uses: actions/configure-pages@v2
