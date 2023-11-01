@@ -124,12 +124,11 @@ jobs:
                   per_page: 100
                 }, (response) => response.data
               );
-              console.log("tagsAll", tagsAll);
 
               let tags = tagsAll.map(e => e.name);
               console.log("tags", tags);
 
-              const tag = tags.slice(-1);
+              const tag = tags[0];
               console.log("tag", tag);
 
               return tag;
