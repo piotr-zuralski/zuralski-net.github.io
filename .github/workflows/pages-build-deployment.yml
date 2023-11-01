@@ -100,6 +100,11 @@ jobs:
   release:
     needs: build
     runs-on: ubuntu-latest
+    outputs:
+      LASTEST_TAG: ${{ steps.version_info.outputs.LASTEST_TAG }}
+      VERSION: ${{ steps.version_info.outputs.VERSION }}
+      VERSION_TIME: ${{ steps.version_info.outputs.VERSION_TIME }}
+      RELEASE_INFO: ${{ steps.version_info.outputs.RELEASE_INFO }}
     steps:
       - name: semver install
         run: npm install semver
