@@ -144,7 +144,7 @@ jobs:
             core.setOutput("VERSION_TIME", VERSION_TIME);
 
             const semver = require('semver');
-            const VERSION = semver.inc(LASTEST_TAG, 'patch');
+            const VERSION = semver.inc(semver.coerce(LASTEST_TAG), 'prerelease', 'beta', false);
             console.log(`VERSION=${VERSION}`);
             core.setOutput("VERSION", VERSION);
 
