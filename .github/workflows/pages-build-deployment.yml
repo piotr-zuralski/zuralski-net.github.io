@@ -91,7 +91,7 @@ jobs:
               const {data: tags} = await github.repos.listTags({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                per_page: 100
+                per_page: 100,
               });
 
               const tagsMaped = tags.map(e => e.name);
