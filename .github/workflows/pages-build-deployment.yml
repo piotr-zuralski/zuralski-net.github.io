@@ -98,7 +98,9 @@ jobs:
           IFS='.' read -ra ADDR <<< "$LASTEST_TAG"
           ADDR[2]=$((ADDR[2] + 1))
           VERSION="${ADDR[0]}.${ADDR[1]}.${ADDR[2]}"
+          VERSION_TIME=$(date -u +"%Y-%m-%dT%H:%M:%S.%3NZ")
           echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "VERSION_TIME=$VERSION_TIME" >> $GITHUB_ENV
         shell: bash
 
       - name: Release create
@@ -108,7 +110,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ env.VERSION }}
-          release_name: Release ${{ env.VERSION }} at $(date -u +"%Y-%m-%dT%H:%M:%S.%3NZ")
+          release_name: Release ${{ env.VERSION }} at ${{ env.VERSION_TIME }}
           draft: false
           prerelease: true
 
