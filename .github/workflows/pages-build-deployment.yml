@@ -85,7 +85,7 @@ jobs:
       - name: Version get latest tag
         id: latesttag
         run: |
-          LASTEST_TAG=$(git describe --tags --abbrev=0)
+          LASTEST_TAG=$(git describe --tags --abbrev=0 || true)
           echo "LASTEST_TAG=$LASTEST_TAG" >> $GITHUB_ENV
           if [ -z "$LASTEST_TAG" ]
           then
