@@ -122,6 +122,14 @@ jobs:
             console.error(e.msg, e);
             }
 
+      - name: Node.js setup
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
+
+      - name: semver install
+        run: npm install semver
+
       - name: Version increment
         uses: actions/github-script@v5
         with:
