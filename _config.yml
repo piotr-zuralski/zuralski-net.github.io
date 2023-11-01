@@ -112,6 +112,9 @@ exclude:
   - "Rakefile"
   - "node_modules/"
   - "config.uglifyjs.json"
+  - CNAME
+  - package.json
+  - yarn.lock
 
 include:
   - "_pages"
