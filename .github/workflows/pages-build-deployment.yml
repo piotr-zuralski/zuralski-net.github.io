@@ -121,6 +121,7 @@ jobs:
 
       - name: Version increment
         uses: actions/github-script@v5
+        id: versionincrement
         with:
           script: |
             const semver = require('semver');
@@ -133,6 +134,18 @@ jobs:
             core.setOutput("VERSION_TIME", VERSION_TIME);
         env:
           LASTEST_TAG: ${{ steps.latesttag.outputs.LASTEST_TAG }}
+
+      - name: env vars setup
+        run: |
+            echo "LASTEST_TAG=$LASTEST_TAG" >> $GITHUB_ENV
+            echo "VERSION=$VERSION" >> $GITHUB_ENV
+            echo "VERSION_TIME=$VERSION_TIME" >> $GITHUB_ENV
+        shell: bash
+        env:
+          LASTEST_TAG: ${{ steps.latesttag.outputs.LASTEST_TAG }}
+          VERSION: ${{ steps.versionincrement.outputs.VERSION }}
+          VERSION_TIME: ${{ steps.versionincrement.outputs.VERSION_TIME }}
+
 
       - name: Release create
         id: create_release
