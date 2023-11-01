@@ -9,7 +9,7 @@ on:
 
 env:
   JEKYLL_ENV: "production"
-  JEKYLL_DESTINATION: "./_site"
+  JEKYLL_DESTINATION: "./_site/"
   RUBY_VERSION: 2.7.5
 
 permissions:
