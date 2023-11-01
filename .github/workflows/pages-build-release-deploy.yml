@@ -1,4 +1,4 @@
-name: pages-build-deployment
+name: pages-build-release-deploy
 
 on:
   schedule:
@@ -126,11 +126,7 @@ jobs:
               );
 
               let tags = tagsAll.map(e => e.name);
-              console.log("tags", tags);
-
               const tag = tags[0];
-              console.log("tag", tag);
-
               return tag;
             }
 
