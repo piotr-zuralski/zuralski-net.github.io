@@ -105,8 +105,7 @@ jobs:
             try {
               const LASTEST_TAG = await getLatestTag();
             } catch (e) {
-              console.error(e.msg);
-              console.error(e);
+              console.error(e.msg, e);
             }
 
             if (typeof LASTEST_TAG === "undefined") {
@@ -114,9 +113,26 @@ jobs:
               console.log("No tag found. Using default version 0.0.1");
             }
 
-            console.log("LASTEST_TAG=" + LASTEST_TAG);
+            try {
             console.log(`LASTEST_TAG=${LASTEST_TAG}`);
+            } catch (e) {
+              console.error(e.msg, e);
+            }
+            try {
+            console.log("LASTEST_TAG=" + LASTEST_TAG);
+            } catch (e) {
+              console.error(e.msg, e);
+            }
+            try {
             core.setOutput("LASTEST_TAG", ${LASTEST_TAG});
+            } catch (e) {
+              console.error(e.msg, e);
+            }
+            try {
+            core.setOutput("LASTEST_TAG", LASTEST_TAG);
+            } catch (e) {
+              console.error(e.msg, e);
+            }
 
       - name: Version increment
         run: |
