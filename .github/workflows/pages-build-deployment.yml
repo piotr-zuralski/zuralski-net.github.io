@@ -25,7 +25,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Code checkout
         uses: actions/checkout@v3
 
       - name: Node.js setup
@@ -38,7 +38,8 @@ jobs:
         run: yarn install --frozen-lockfile
         # if: ${{ steps.yarn-cache.outputs.cache-hit != 'true' }}
 
-      - uses: actions/cache@v3
+      - name: Ruby cache
+        uses: actions/cache@v3
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
@@ -62,74 +63,85 @@ jobs:
       - if: ${{ github.actor == 'nektos/act' }}
         run: bundle install
 
-      - name: build jekyll development
+      - name: jekyll build development
         run: bundle exec rake
         env: 
           JEKYLL_ENV: development
 
       - run: rm -rf ${{ env.JEKYLL_DESTINATION }} .jekyll-cache
 
-      - name: build jekyll production
+      - name: jekyll build production
         run: bundle exec rake
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OCTOKIT_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  release:
-    needs: build
-    runs-on: ubuntu-latest
+#  release:
+#    needs: build
+#    runs-on: ubuntu-latest
+#
+#    steps:
+      - name: Version get latest tag
+        id: latesttag
+        run: |
+          LASTEST_TAG=$(git describe --tags --abbrev=0)
+          echo "LASTEST_TAG=$LASTEST_TAG" >> $GITHUB_ENV
+          if [ -z "$LASTEST_TAG" ]
+          then
+            echo "No tag found. Using default version 0.0.0"
+            echo "LASTEST_TAG=0.0.0" >> $GITHUB_ENV
+          fi
 
-    steps:
-    - name: Get latest tag
-      id: latesttag
-      run: |
-        LASTEST_TAG=$(git describe --tags --abbrev=0)
-        echo "LASTEST_TAG=$LASTEST_TAG" >> $GITHUB_ENV
-        if [ -z "$LASTEST_TAG" ]
-        then
-          echo "No tag found. Using default version 0.0.0"
-          echo "LASTEST_TAG=0.0.0" >> $GITHUB_ENV
-        fi
+      - name: Version increment
+        run: |
+          IFS='.' read -ra ADDR <<< "$LASTEST_TAG"
+          ADDR[2]=$((ADDR[2] + 1))
+          VERSION="${ADDR[0]}.${ADDR[1]}.${ADDR[2]}"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+        shell: bash
 
-    - name: Increment version and create GitHub Release
-      run: |
-        IFS='.' read -ra ADDR <<< "$LASTEST_TAG"
-        ADDR[2]=$((ADDR[2] + 1))
-        VERSION="${ADDR[0]}.${ADDR[1]}.${ADDR[2]}"
-        echo "VERSION=$VERSION" >> $GITHUB_ENV
-      shell: bash
+      - name: Release create
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.VERSION }}
+          release_name: Release ${{ env.VERSION }} at $(date -u +"%Y-%m-%dT%H:%M:%S.%3NZ")
+          draft: false
+          prerelease: true
 
-    - name: Release create
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ env.VERSION }}
-        release_name: Release ${{ env.VERSION }} at $(date -u +"%Y-%m-%dT%H:%M:%S.%3NZ")
-        draft: false
-        prerelease: true
+      - name: Release asset upload
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ env.JEKYLL_DESTINATION }}
+          asset_name: site.zip
+          asset_content_type: application/zip
 
-  deploy:
-    needs: release
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Setup Pages
+#  deploy:
+#    needs: release
+#    runs-on: ubuntu-latest
+#
+#    steps:
+      - name: GitHub Pages setup
         uses: actions/configure-pages@v2
         id: pages
         if: ${{ github.actor != 'nektos/act' }}
         continue-on-error: true
 
-      - name: Upload GitHub Pages artifact
+      - name: GitHub Pages upload artifact
         uses: actions/upload-pages-artifact@v1.0.4
         if: ${{ success() && github.actor != 'nektos/act' }}
         continue-on-error: true
         with:
           path: ${{ env.JEKYLL_DESTINATION }}
 
-      - name: Publish to Cloudflare Pages
+      - name: Cloudflare Pages publish
         uses: cloudflare/pages-action@v1
         if: ${{ success() && github.actor != 'nektos/act' }}
         with:
