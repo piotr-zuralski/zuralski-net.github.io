@@ -82,7 +82,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Version get latest tag
-        uses: actions/github-script@v2
+        uses: actions/github-script@v5
         id: latesttag
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -91,7 +91,7 @@ jobs:
               const {data: tags} = await github.repos.listTags({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                per_page: 100,
+                per_page: 100
               });
 
               const tagsMaped = tags.map(e => e.name);
@@ -101,46 +101,41 @@ jobs:
             }
 
             try {
-              const LASTEST_TAG = await getLatestTag();
+            const LASTEST_TAG = await getLatestTag();
             } catch (e) {
-              console.error(e.msg, e);
+            console.error(e.msg, e);
             }
 
             if (typeof LASTEST_TAG === "undefined") {
-              const LASTEST_TAG = "0.0.1";
-              console.log("No tag found. Using default version " + LASTEST_TAG);
+            const LASTEST_TAG = "0.0.1";
+            console.log("No tag found. Using default version " + LASTEST_TAG);
             }
 
             try {
             console.log(`LASTEST_TAG=${LASTEST_TAG}`);
             } catch (e) {
-              console.error(e.msg, e);
-            }
-            try {
-            console.log("LASTEST_TAG=" + LASTEST_TAG);
-            } catch (e) {
-              console.error(e.msg, e);
-            }
-            try {
-            core.setOutput("LASTEST_TAG", ${LASTEST_TAG});
-            } catch (e) {
-              console.error(e.msg, e);
+            console.error(e.msg, e);
             }
             try {
             core.setOutput("LASTEST_TAG", LASTEST_TAG);
             } catch (e) {
-              console.error(e.msg, e);
+            console.error(e.msg, e);
             }
 
       - name: Version increment
-        run: |
-          IFS='.' read -ra ADDR <<< "$LASTEST_TAG"
-          ADDR[2]=$((ADDR[2] + 1))
-          VERSION="${ADDR[0]}.${ADDR[1]}.${ADDR[2]}"
-          VERSION_TIME=$(date -u +"%Y-%m-%dT%H:%M:%S.%3NZ")
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "VERSION_TIME=$VERSION_TIME" >> $GITHUB_ENV
-        shell: bash
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const semver = require('semver');
+            const VERSION = semver.inc(process.env.LASTEST_TAG, 'patch');
+            console.log(`VERSION=${VERSION}`);
+            core.setOutput("VERSION", VERSION);
+
+            const VERSION_TIME = new Date().toISOString();
+            console.log(`VERSION_TIME=${VERSION_TIME}`);
+            core.setOutput("VERSION_TIME", VERSION_TIME);
+        env:
+          LASTEST_TAG: ${{ steps.latesttag.outputs.result }}
 
       - name: Release create
         id: create_release
@@ -154,8 +149,7 @@ jobs:
           prerelease: true
 
       - name: Archive production artifacts
-        run: |
-          zip -r site.zip ${{ env.JEKYLL_DESTINATION }}
+        run: zip -r site.zip ${{ env.JEKYLL_DESTINATION }}
 
       - name: Release asset upload
         id: upload-release-asset
