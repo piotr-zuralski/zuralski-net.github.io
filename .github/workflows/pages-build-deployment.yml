@@ -102,27 +102,14 @@ jobs:
               return tagsSorted[0];
             }
 
-            try {
             const LASTEST_TAG = await getLatestTag();
-            } catch (e) {
-            console.error(e.msg, e);
+            if (typeof LASTEST_TAG === "undefined" || !LASTEST_TAG) {
+              const LASTEST_TAG = "0.0.1";
+              console.log("No tag found. Using default version " + LASTEST_TAG);
             }
 
-            if (typeof LASTEST_TAG === "undefined") {
-            const LASTEST_TAG = "0.0.1";
-            console.log("No tag found. Using default version " + LASTEST_TAG);
-            }
-
-            try {
             console.log(`LASTEST_TAG=${LASTEST_TAG}`);
-            } catch (e) {
-            console.error(e.msg, e);
-            }
-            try {
             core.setOutput("LASTEST_TAG", LASTEST_TAG);
-            } catch (e) {
-            console.error(e.msg, e);
-            }
 
       - name: Node.js setup
         uses: actions/setup-node@v3
