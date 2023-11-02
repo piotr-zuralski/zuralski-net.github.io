@@ -303,12 +303,19 @@ jobs:
 
       - name: Deployment validate
         uses: actions/github-script@v5
+        env:
+          LASTEST_TAG: ${{ needs.deploy.outputs.LASTEST_TAG }}
+          RELEASE_INFO: ${{ needs.deploy.outputs.RELEASE_INFO }}
+          REVISION: ${{ needs.deploy.outputs.REVISION }}
+          VERSION: ${{ needs.deploy.outputs.VERSION }}
+          VERSION_TIME: ${{ needs.deploy.outputs.VERSION_TIME }}
         with:
           script: |
-            console.log(`env.REVISION=${{ env.REVISION }}`);
-            console.log(`REVISION_1=${ env.REVISION }`);
-            console.log(`REVISION_2=${ REVISION }`);
-            console.log("process.env.REVISION=" + process.env.REVISION);
+            const LASTEST_TAG = process.env.LASTEST_TAG;
+            const RELEASE_INFO = process.env.RELEASE_INFO;
+            const REVISION = process.env.REVISION;
+            const VERSION = process.env.VERSION;
+            const VERSION_TIME = process.env.VERSION_TIME;
 
             const https = require('https');
             const url = 'https://zuralski.net/release.json';
@@ -320,7 +327,7 @@ jobs:
               });
 
               res.on('end', () => {
-                if (data.includes(${{ env.VERSION }}) && data.includes(${{ env.REVISION }})) {
+                if (data.includes(${VERSION}) && data.includes(${REVISION})) {
                   console.log('Validation passed');
                 } else {
                   console.log('Validation failed');
@@ -331,12 +338,6 @@ jobs:
             }).on("error", (err) => {
               console.error(err.message, err);
             });
-        env:
-          LASTEST_TAG: ${{ needs.deploy.outputs.LASTEST_TAG }}
-          RELEASE_INFO: ${{ needs.deploy.outputs.RELEASE_INFO }}
-          REVISION: ${{ needs.deploy.outputs.REVISION }}
-          VERSION: ${{ needs.deploy.outputs.VERSION }}
-          VERSION_TIME: ${{ needs.deploy.outputs.VERSION_TIME }}
 
       - name: Sitemap ping Bing
         run: curl -sS -w "%{http_code}" --location --fail https://www.bing.com/ping?sitemap=${{ env.SITEMAP_URL }} -o /dev/null || true
