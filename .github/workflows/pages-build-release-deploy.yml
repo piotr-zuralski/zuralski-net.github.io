@@ -117,7 +117,7 @@ jobs:
         run: npm install semver
 
       - name: Version info
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         id: version_info
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -227,7 +227,7 @@ jobs:
           path: ${{ env.JEKYLL_DESTINATION }}
 
       - name: Version info
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         id: version_info
         env:
           RELEASE_INFO: ${{ needs.release.outputs.RELEASE_INFO }}
@@ -285,7 +285,7 @@ jobs:
           node-version: 'lts/*'
 
       - name: Version info
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         id: version_info
         env:
           REVISION: ${{ needs.deploy.outputs.REVISION }}
@@ -313,7 +313,7 @@ jobs:
         run: curl -sS --location --fail ${{ env.SITEMAP_URL }}
 
       - name: Deployment validate
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         env:
           REVISION: ${{ steps.version_info.outputs.REVISION }}
           VERSION: ${{ steps.version_info.outputs.VERSION }}
