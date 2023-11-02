@@ -292,6 +292,27 @@ jobs:
         with:
           node-version: 'lts/*'
 
+      - name: env vars setup
+        run: |
+            echo "LASTEST_TAG=$LASTEST_TAG" >> $GITHUB_ENV
+            echo "RELEASE_INFO=$RELEASE_INFO" >> $GITHUB_ENV
+            echo "REVISION=$REVISION" >> $GITHUB_ENV
+            echo "VERSION=$VERSION" >> $GITHUB_ENV
+            echo "VERSION_TIME=$VERSION_TIME" >> $GITHUB_ENV
+
+            echo "LASTEST_TAG=$LASTEST_TAG"
+            echo "RELEASE_INFO=$RELEASE_INFO"
+            echo "REVISION=${{ env.REVISION }}"
+            echo "VERSION=$VERSION"
+            echo "VERSION_TIME=$VERSION_TIME"
+        shell: bash
+        env:
+          LASTEST_TAG: ${{ needs.deploy.outputs.LASTEST_TAG }}
+          RELEASE_INFO: ${{ needs.deploy.outputs.RELEASE_INFO }}
+          REVISION: ${{ needs.deploy.outputs.REVISION }}
+          VERSION: ${{ needs.deploy.outputs.VERSION }}
+          VERSION_TIME: ${{ needs.deploy.outputs.VERSION_TIME }}
+
       - name: Cloudflare Cache purge
         uses: jakejarvis/cloudflare-purge-action@master
         env:
@@ -326,8 +347,8 @@ jobs:
                 data += chunk;
               });
 
-              res.on('end', () => {
-                if (data.includes(${VERSION}) && data.includes(${REVISION})) {
+              res.on('end', (n) => {
+                if (data.includes(${REVISION}) && data.includes(${VERSION})) {
                   console.log('Validation passed');
                 } else {
                   console.log('Validation failed');
@@ -335,7 +356,7 @@ jobs:
                 }
               });
 
-            }).on("error", (err) => {
+            }).on('error', (err) => {
               console.error(err.message, err);
             });
 
