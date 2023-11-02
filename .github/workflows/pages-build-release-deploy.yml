@@ -169,7 +169,7 @@ jobs:
               revision: REVISION,
               version: VERSION,
             };
-            RELEASE_INFO = JSON.stringify(releaseInfo);
+            RELEASE_INFO = JSON.stringify(RELEASE_INFO);
 
             console.log(`RELEASE_INFO=${RELEASE_INFO}`);
             core.setOutput("RELEASE_INFO", RELEASE_INFO);
