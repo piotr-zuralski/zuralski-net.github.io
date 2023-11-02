@@ -257,19 +257,19 @@ jobs:
             const VERSION_TIME = process.env.VERSION_TIME;
 
             console.log(`LASTEST_TAG=${LASTEST_TAG}`);
-            core.setOutput("LASTEST_TAG", ${LASTEST_TAG});
+            core.setOutput("LASTEST_TAG", LASTEST_TAG);
 
             console.log(`RELEASE_INFO=${RELEASE_INFO}`);
-            core.setOutput("RELEASE_INFO", ${RELEASE_INFO});
+            core.setOutput("RELEASE_INFO", RELEASE_INFO);
 
             console.log(`REVISION=${REVISION}`);
-            core.setOutput("REVISION", ${REVISION});
+            core.setOutput("REVISION", REVISION);
 
             console.log(`VERSION=${VERSION}`);
-            core.setOutput("VERSION", ${VERSION});
+            core.setOutput("VERSION", VERSION);
 
             console.log(`VERSION_TIME=${VERSION_TIME}`);
-            core.setOutput("VERSION_TIME", ${VERSION_TIME});
+            core.setOutput("VERSION_TIME", VERSION_TIME);
 
       - name: env vars setup
         run: |
@@ -341,19 +341,19 @@ jobs:
             const VERSION_TIME = process.env.VERSION_TIME;
 
             console.log(`LASTEST_TAG=${LASTEST_TAG}`);
-            core.setOutput("LASTEST_TAG", ${LASTEST_TAG});
+            core.setOutput("LASTEST_TAG", LASTEST_TAG);
 
             console.log(`RELEASE_INFO=${RELEASE_INFO}`);
-            core.setOutput("RELEASE_INFO", ${RELEASE_INFO});
+            core.setOutput("RELEASE_INFO", RELEASE_INFO);
 
             console.log(`REVISION=${REVISION}`);
-            core.setOutput("REVISION", ${REVISION});
+            core.setOutput("REVISION", REVISION);
 
             console.log(`VERSION=${VERSION}`);
-            core.setOutput("VERSION", ${VERSION});
+            core.setOutput("VERSION", VERSION);
 
             console.log(`VERSION_TIME=${VERSION_TIME}`);
-            core.setOutput("VERSION_TIME", ${VERSION_TIME});
+            core.setOutput("VERSION_TIME", VERSION_TIME);
 
       - name: env vars setup
         run: |
@@ -411,7 +411,7 @@ jobs:
               });
 
               res.on('end', (n) => {
-                if (data.includes(${REVISION}) && data.includes(${VERSION})) {
+                if (data.includes(REVISION) && data.includes(VERSION)) {
                   console.log('Validation passed');
                 } else {
                   console.log('Validation failed');
