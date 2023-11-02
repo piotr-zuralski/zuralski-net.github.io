@@ -183,6 +183,15 @@ jobs:
           REVISION: ${{ steps.version_info.outputs.REVISION }}
           RELEASE_INFO: ${{ steps.version_info.outputs.RELEASE_INFO }}
 
+      - name: Changelog generate
+        id: changelog_generate
+        uses: nblagoev/pull-release-notes-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          base-ref: ${{ steps.version_info.outputs.LASTEST_TAG }}
+          head-ref: ${{ github.ref }}
+
       - name: Release create
         id: release_create
         uses: actions/create-release@v1
@@ -191,6 +200,7 @@ jobs:
         with:
           tag_name: ${{ env.VERSION }}
           release_name: Release ${{ env.VERSION }} at ${{ env.VERSION_TIME }}
+          body: ${{ steps.changelog_generate.outputs.result }}
           draft: false
           prerelease: true
 
@@ -283,35 +293,37 @@ jobs:
         run: curl -sS --location --fail ${{ env.SITEMAP_URL }}
 
       - name: Deployment validate
-        run: |
-          const https = require('https');
-          const url = 'https://zuralski.net/release.json';
-          https.get(url, (res) => {
-            let data = '';
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const https = require('https');
+            const url = 'https://zuralski.net/release.json';
+            https.get(url, (res) => {
+              let data = '';
 
-            res.on('data', (chunk) => {
-              data += chunk;
+              res.on('data', (chunk) => {
+                data += chunk;
+              });
+
+              res.on('end', () => {
+                if (data.includes(${{ env.VERSION }}) && data.includes(${{ env.REVISION }})) {
+                  console.log('Validation passed');
+                } else {
+                  console.log('Validation failed');
+                  process.exit(1);
+                }
+              });
+
+            }).on("error", (err) => {
+              console.error(err.message, err);
             });
-
-            res.on('end', () => {
-              if (data.includes(${{ env.VERSION }}) && data.includes(${{ env.REVISION }})) {
-                console.log('Validation passed');
-              } else {
-                console.log('Validation failed');
-                process.exit(1);
-              }
-            });
-
-          }).on("error", (err) => {
-            console.error(err.message, err);
-          });
-        shell: node
         env:
-          REVISION: ${{ needs.deploy.outputs.REVISION }}
-          LASTEST_TAG: ${{ needs.deploy.outputs.LASTEST_TAG }}
-          VERSION: ${{ needs.deploy.outputs.VERSION }}
-          VERSION_TIME: ${{ needs.deploy.outputs.VERSION_TIME }}
-          RELEASE_INFO: ${{ needs.deploy.outputs.RELEASE_INFO }}
+            REVISION: ${{ needs.deploy.outputs.REVISION }}
+            LASTEST_TAG: ${{ needs.deploy.outputs.LASTEST_TAG }}
+            VERSION: ${{ needs.deploy.outputs.VERSION }}
+            VERSION_TIME: ${{ needs.deploy.outputs.VERSION_TIME }}
+            RELEASE_INFO: ${{ needs.deploy.outputs.RELEASE_INFO }}
+
 
       - name: Sitemap ping Bing
         run: curl -sS -w "%{http_code}" --location --fail https://www.bing.com/ping?sitemap=${{ env.SITEMAP_URL }} -o /dev/null || true
