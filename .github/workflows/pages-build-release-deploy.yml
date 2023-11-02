@@ -108,8 +108,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       LASTEST_TAG: ${{ steps.version_info.outputs.LASTEST_TAG }}
-      REVISION: ${{ steps.version_info.outputs.REVISION }}
       RELEASE_INFO: ${{ steps.version_info.outputs.RELEASE_INFO }}
+      REVISION: ${{ steps.version_info.outputs.REVISION }}
       VERSION: ${{ steps.version_info.outputs.VERSION }}
       VERSION_TIME: ${{ steps.version_info.outputs.VERSION_TIME }}
     steps:
@@ -182,8 +182,8 @@ jobs:
           LASTEST_TAG: ${{ steps.version_info.outputs.LASTEST_TAG }}
           VERSION: ${{ steps.version_info.outputs.VERSION }}
           VERSION_TIME: ${{ steps.version_info.outputs.VERSION_TIME }}
-          REVISION: ${{ steps.version_info.outputs.REVISION }}
           RELEASE_INFO: ${{ steps.version_info.outputs.RELEASE_INFO }}
+          REVISION: ${{ steps.version_info.outputs.REVISION }}
 
       - name: Changelog generate
         id: changelog_generate
@@ -228,8 +228,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       LASTEST_TAG: ${{ steps.version_info.outputs.LASTEST_TAG }}
-      REVISION: ${{ steps.version_info.outputs.REVISION }}
       RELEASE_INFO: ${{ steps.version_info.outputs.RELEASE_INFO }}
+      REVISION: ${{ steps.version_info.outputs.REVISION }}
       VERSION: ${{ steps.version_info.outputs.VERSION }}
       VERSION_TIME: ${{ steps.version_info.outputs.VERSION_TIME }}
     steps:
@@ -243,14 +243,14 @@ jobs:
         id: version_info
         run: |
             echo "LASTEST_TAG=$LASTEST_TAG" >> $GITHUB_ENV
-            echo "REVISION=$REVISION" >> $GITHUB_ENV
             echo "RELEASE_INFO=$RELEASE_INFO" >> $GITHUB_ENV
+            echo "REVISION=$REVISION" >> $GITHUB_ENV
             echo "VERSION=$VERSION" >> $GITHUB_ENV
             echo "VERSION_TIME=$VERSION_TIME" >> $GITHUB_ENV
 
             echo "LASTEST_TAG=$LASTEST_TAG"
-            echo "REVISION=$REVISION"
             echo "RELEASE_INFO=$RELEASE_INFO"
+            echo "REVISION=${{ env.REVISION }}"
             echo "VERSION=$VERSION"
             echo "VERSION_TIME=$VERSION_TIME"
 
@@ -258,8 +258,8 @@ jobs:
         shell: bash
         env:
           LASTEST_TAG: ${{ needs.release.outputs.LASTEST_TAG }}
-          REVISION: ${{ needs.release.outputs.REVISION }}
           RELEASE_INFO: ${{ needs.release.outputs.RELEASE_INFO }}
+          REVISION: ${{ needs.release.outputs.REVISION }}
           VERSION: ${{ needs.release.outputs.VERSION }}
           VERSION_TIME: ${{ needs.release.outputs.VERSION_TIME }}
 
@@ -305,6 +305,11 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
+            console.log(`env.REVISION=${{ env.REVISION }}`);
+            console.log(`REVISION_1=${ env.REVISION }`);
+            console.log(`REVISION_2=${ REVISION }`);
+            console.log("process.env.REVISION=" + process.env.REVISION);
+
             const https = require('https');
             const url = 'https://zuralski.net/release.json';
             https.get(url, (res) => {
@@ -328,8 +333,8 @@ jobs:
             });
         env:
           LASTEST_TAG: ${{ needs.deploy.outputs.LASTEST_TAG }}
-          REVISION: ${{ needs.deploy.outputs.REVISION }}
           RELEASE_INFO: ${{ needs.deploy.outputs.RELEASE_INFO }}
+          REVISION: ${{ needs.deploy.outputs.REVISION }}
           VERSION: ${{ needs.deploy.outputs.VERSION }}
           VERSION_TIME: ${{ needs.deploy.outputs.VERSION_TIME }}
 
