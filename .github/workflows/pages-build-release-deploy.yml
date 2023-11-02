@@ -107,11 +107,11 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     outputs:
-      REVISION: ${{ steps.version_info.outputs.REVISION }}
       LASTEST_TAG: ${{ steps.version_info.outputs.LASTEST_TAG }}
+      REVISION: ${{ steps.version_info.outputs.REVISION }}
+      RELEASE_INFO: ${{ steps.version_info.outputs.RELEASE_INFO }}
       VERSION: ${{ steps.version_info.outputs.VERSION }}
       VERSION_TIME: ${{ steps.version_info.outputs.VERSION_TIME }}
-      RELEASE_INFO: ${{ steps.version_info.outputs.RELEASE_INFO }}
     steps:
       - name: semver install
         run: npm install semver
@@ -146,10 +146,6 @@ jobs:
             console.log(`LASTEST_TAG=${LASTEST_TAG}`);
             core.setOutput("LASTEST_TAG", LASTEST_TAG);
 
-            const VERSION_TIME = new Date().toISOString();
-            console.log(`VERSION_TIME=${VERSION_TIME}`);
-            core.setOutput("VERSION_TIME", VERSION_TIME);
-
             const REVISION = "${{ github.sha }}".substring(0, 8);
             console.log(`REVISION=${REVISION}`);
             core.setOutput("REVISION", REVISION);
@@ -158,6 +154,10 @@ jobs:
             const VERSION = semver.inc(semver.coerce(LASTEST_TAG), 'prerelease', 'beta', false);
             console.log(`VERSION=${VERSION}`);
             core.setOutput("VERSION", VERSION);
+
+            const VERSION_TIME = new Date().toISOString();
+            console.log(`VERSION_TIME=${VERSION_TIME}`);
+            core.setOutput("VERSION_TIME", VERSION_TIME);
 
             let releaseInfo = {
               releasedAt: VERSION_TIME,
@@ -173,9 +173,10 @@ jobs:
       - name: env vars setup
         run: |
             echo "LASTEST_TAG=$LASTEST_TAG" >> $GITHUB_ENV
+            echo "RELEASE_INFO=$RELEASE_INFO" >> $GITHUB_ENV
+            echo "REVISION=$REVISION" >> $GITHUB_ENV
             echo "VERSION=$VERSION" >> $GITHUB_ENV
             echo "VERSION_TIME=$VERSION_TIME" >> $GITHUB_ENV
-            echo "RELEASE_INFO=$RELEASE_INFO" >> $GITHUB_ENV
         shell: bash
         env:
           LASTEST_TAG: ${{ steps.version_info.outputs.LASTEST_TAG }}
@@ -226,11 +227,11 @@ jobs:
     needs: release
     runs-on: ubuntu-latest
     outputs:
-      REVISION: ${{ steps.version_info.outputs.REVISION }}
       LASTEST_TAG: ${{ steps.version_info.outputs.LASTEST_TAG }}
+      REVISION: ${{ steps.version_info.outputs.REVISION }}
+      RELEASE_INFO: ${{ steps.version_info.outputs.RELEASE_INFO }}
       VERSION: ${{ steps.version_info.outputs.VERSION }}
       VERSION_TIME: ${{ steps.version_info.outputs.VERSION_TIME }}
-      RELEASE_INFO: ${{ steps.version_info.outputs.RELEASE_INFO }}
     steps:
       - name: Artifacts production download ${{ env.JEKYLL_DESTINATION }}
         uses: actions/download-artifact@v3
@@ -241,22 +242,26 @@ jobs:
       - name: env vars setup
         id: version_info
         run: |
-            echo "REVISION=$REVISION" >> $GITHUB_ENV
             echo "LASTEST_TAG=$LASTEST_TAG" >> $GITHUB_ENV
+            echo "REVISION=$REVISION" >> $GITHUB_ENV
+            echo "RELEASE_INFO=$RELEASE_INFO" >> $GITHUB_ENV
             echo "VERSION=$VERSION" >> $GITHUB_ENV
             echo "VERSION_TIME=$VERSION_TIME" >> $GITHUB_ENV
-            echo "RELEASE_INFO=$RELEASE_INFO" >> $GITHUB_ENV
 
+            echo "LASTEST_TAG=$LASTEST_TAG"
             echo "REVISION=$REVISION"
-            echo "RELEASE_INFO: ${{ env.RELEASE_INFO }}"
+            echo "RELEASE_INFO=$RELEASE_INFO"
+            echo "VERSION=$VERSION"
+            echo "VERSION_TIME=$VERSION_TIME"
+
             echo "${{ env.RELEASE_INFO }}" > ./_site/release.json
         shell: bash
         env:
-          REVISION: ${{ needs.release.outputs.REVISION }}
           LASTEST_TAG: ${{ needs.release.outputs.LASTEST_TAG }}
+          REVISION: ${{ needs.release.outputs.REVISION }}
+          RELEASE_INFO: ${{ needs.release.outputs.RELEASE_INFO }}
           VERSION: ${{ needs.release.outputs.VERSION }}
           VERSION_TIME: ${{ needs.release.outputs.VERSION_TIME }}
-          RELEASE_INFO: ${{ needs.release.outputs.RELEASE_INFO }}
 
 #      - name: GitHub Pages setup
 #        uses: actions/configure-pages@v2
@@ -322,12 +327,11 @@ jobs:
               console.error(err.message, err);
             });
         env:
-          REVISION: ${{ needs.deploy.outputs.REVISION }}
           LASTEST_TAG: ${{ needs.deploy.outputs.LASTEST_TAG }}
+          REVISION: ${{ needs.deploy.outputs.REVISION }}
+          RELEASE_INFO: ${{ needs.deploy.outputs.RELEASE_INFO }}
           VERSION: ${{ needs.deploy.outputs.VERSION }}
           VERSION_TIME: ${{ needs.deploy.outputs.VERSION_TIME }}
-          RELEASE_INFO: ${{ needs.deploy.outputs.RELEASE_INFO }}
-
 
       - name: Sitemap ping Bing
         run: curl -sS -w "%{http_code}" --location --fail https://www.bing.com/ping?sitemap=${{ env.SITEMAP_URL }} -o /dev/null || true
