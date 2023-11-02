@@ -216,6 +216,9 @@ jobs:
   deploy:
     needs: release
     runs-on: ubuntu-latest
+    environment:
+      name: cloudflare-pages-production
+      url: https://zuralski-net.pages.dev/
     outputs:
       REVISION: ${{ steps.version_info.outputs.REVISION }}
       VERSION: ${{ steps.version_info.outputs.VERSION }}
