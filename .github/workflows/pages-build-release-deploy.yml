@@ -145,45 +145,35 @@ jobs:
 
             console.log(`LASTEST_TAG=${LASTEST_TAG}`);
             core.setOutput("LASTEST_TAG", LASTEST_TAG);
+            core.exportVariable("LASTEST_TAG", LASTEST_TAG);
 
             const REVISION = "${{ github.sha }}".substring(0, 8);
             console.log(`REVISION=${REVISION}`);
             core.setOutput("REVISION", REVISION);
+            core.exportVariable("REVISION", REVISION);
 
             const semver = require('semver');
             const VERSION = semver.inc(semver.coerce(LASTEST_TAG), 'prerelease', 'beta', false);
             console.log(`VERSION=${VERSION}`);
             core.setOutput("VERSION", VERSION);
+            core.exportVariable("VERSION", VERSION);
 
             const VERSION_TIME = new Date().toISOString();
             console.log(`VERSION_TIME=${VERSION_TIME}`);
             core.setOutput("VERSION_TIME", VERSION_TIME);
+            core.exportVariable("VERSION_TIME", VERSION_TIME);
 
-            let releaseInfo = {
+            let RELEASE_INFO = {
               releasedAt: VERSION_TIME,
               branch: "${{ github.ref_name }}",
               revision: REVISION,
               version: VERSION,
             };
-            releaseInfo = JSON.stringify(releaseInfo);
+            RELEASE_INFO = JSON.stringify(releaseInfo);
 
-            console.log(`RELEASE_INFO=${releaseInfo}`);
-            core.setOutput("RELEASE_INFO", releaseInfo);
-
-      - name: env vars setup
-        run: |
-            echo "LASTEST_TAG=$LASTEST_TAG" >> $GITHUB_ENV
-            echo "RELEASE_INFO=$RELEASE_INFO" >> $GITHUB_ENV
-            echo "REVISION=$REVISION" >> $GITHUB_ENV
-            echo "VERSION=$VERSION" >> $GITHUB_ENV
-            echo "VERSION_TIME=$VERSION_TIME" >> $GITHUB_ENV
-        shell: bash
-        env:
-          LASTEST_TAG: ${{ steps.version_info.outputs.LASTEST_TAG }}
-          VERSION: ${{ steps.version_info.outputs.VERSION }}
-          VERSION_TIME: ${{ steps.version_info.outputs.VERSION_TIME }}
-          RELEASE_INFO: ${{ steps.version_info.outputs.RELEASE_INFO }}
-          REVISION: ${{ steps.version_info.outputs.REVISION }}
+            console.log(`RELEASE_INFO=${RELEASE_INFO}`);
+            core.setOutput("RELEASE_INFO", RELEASE_INFO);
+            core.exportVariable("RELEASE_INFO", RELEASE_INFO);
 
       - name: Changelog generate
         id: changelog_generate
@@ -227,11 +217,8 @@ jobs:
     needs: release
     runs-on: ubuntu-latest
     outputs:
-      LASTEST_TAG: ${{ steps.version_info.outputs.LASTEST_TAG }}
-      RELEASE_INFO: ${{ steps.version_info.outputs.RELEASE_INFO }}
       REVISION: ${{ steps.version_info.outputs.REVISION }}
       VERSION: ${{ steps.version_info.outputs.VERSION }}
-      VERSION_TIME: ${{ steps.version_info.outputs.VERSION_TIME }}
     steps:
       - name: Artifacts production download ${{ env.JEKYLL_DESTINATION }}
         uses: actions/download-artifact@v3
@@ -243,56 +230,30 @@ jobs:
         uses: actions/github-script@v5
         id: version_info
         env:
-          LASTEST_TAG: ${{ needs.release.outputs.LASTEST_TAG }}
           RELEASE_INFO: ${{ needs.release.outputs.RELEASE_INFO }}
           REVISION: ${{ needs.release.outputs.REVISION }}
           VERSION: ${{ needs.release.outputs.VERSION }}
-          VERSION_TIME: ${{ needs.release.outputs.VERSION_TIME }}
         with:
           script: |
-            const LASTEST_TAG = process.env.LASTEST_TAG;
             const RELEASE_INFO = process.env.RELEASE_INFO;
             const REVISION = process.env.REVISION;
             const VERSION = process.env.VERSION;
-            const VERSION_TIME = process.env.VERSION_TIME;
-
-            console.log(`LASTEST_TAG=${LASTEST_TAG}`);
-            core.setOutput("LASTEST_TAG", LASTEST_TAG);
 
             console.log(`RELEASE_INFO=${RELEASE_INFO}`);
             core.setOutput("RELEASE_INFO", RELEASE_INFO);
+            core.exportVariable("RELEASE_INFO", RELEASE_INFO);
 
             console.log(`REVISION=${REVISION}`);
             core.setOutput("REVISION", REVISION);
+            core.exportVariable("REVISION", REVISION);
 
             console.log(`VERSION=${VERSION}`);
             core.setOutput("VERSION", VERSION);
+            core.exportVariable("VERSION", VERSION);
 
-            console.log(`VERSION_TIME=${VERSION_TIME}`);
-            core.setOutput("VERSION_TIME", VERSION_TIME);
-
-      - name: env vars setup
-        run: |
-            echo "LASTEST_TAG=$LASTEST_TAG" >> $GITHUB_ENV
-            echo "RELEASE_INFO=$RELEASE_INFO" >> $GITHUB_ENV
-            echo "REVISION=$REVISION" >> $GITHUB_ENV
-            echo "VERSION=$VERSION" >> $GITHUB_ENV
-            echo "VERSION_TIME=$VERSION_TIME" >> $GITHUB_ENV
-
-            echo "LASTEST_TAG=$LASTEST_TAG"
-            echo "RELEASE_INFO=$RELEASE_INFO"
-            echo "REVISION=${{ env.REVISION }}"
-            echo "VERSION=$VERSION"
-            echo "VERSION_TIME=$VERSION_TIME"
-
-            echo "${{ env.RELEASE_INFO }}" > ./_site/release.json
+      - name: Release info export
+        run: echo "${{ env.RELEASE_INFO }}" > ./_site/release.json
         shell: bash
-        env:
-          LASTEST_TAG: ${{ steps.version_info.outputs.LASTEST_TAG }}
-          VERSION: ${{ steps.version_info.outputs.VERSION }}
-          VERSION_TIME: ${{ steps.version_info.outputs.VERSION_TIME }}
-          RELEASE_INFO: ${{ steps.version_info.outputs.RELEASE_INFO }}
-          REVISION: ${{ steps.version_info.outputs.REVISION }}
 
 #      - name: GitHub Pages setup
 #        uses: actions/configure-pages@v2
@@ -327,54 +288,20 @@ jobs:
         uses: actions/github-script@v5
         id: version_info
         env:
-          LASTEST_TAG: ${{ needs.deploy.outputs.LASTEST_TAG }}
-          RELEASE_INFO: ${{ needs.deploy.outputs.RELEASE_INFO }}
           REVISION: ${{ needs.deploy.outputs.REVISION }}
           VERSION: ${{ needs.deploy.outputs.VERSION }}
-          VERSION_TIME: ${{ needs.deploy.outputs.VERSION_TIME }}
         with:
           script: |
-            const LASTEST_TAG = process.env.LASTEST_TAG;
-            const RELEASE_INFO = process.env.RELEASE_INFO;
             const REVISION = process.env.REVISION;
             const VERSION = process.env.VERSION;
-            const VERSION_TIME = process.env.VERSION_TIME;
-
-            console.log(`LASTEST_TAG=${LASTEST_TAG}`);
-            core.setOutput("LASTEST_TAG", LASTEST_TAG);
-
-            console.log(`RELEASE_INFO=${RELEASE_INFO}`);
-            core.setOutput("RELEASE_INFO", RELEASE_INFO);
 
             console.log(`REVISION=${REVISION}`);
             core.setOutput("REVISION", REVISION);
+            core.exportVariable("REVISION", REVISION);
 
             console.log(`VERSION=${VERSION}`);
             core.setOutput("VERSION", VERSION);
-
-            console.log(`VERSION_TIME=${VERSION_TIME}`);
-            core.setOutput("VERSION_TIME", VERSION_TIME);
-
-      - name: env vars setup
-        run: |
-            echo "LASTEST_TAG=$LASTEST_TAG" >> $GITHUB_ENV
-            echo "RELEASE_INFO=$RELEASE_INFO" >> $GITHUB_ENV
-            echo "REVISION=$REVISION" >> $GITHUB_ENV
-            echo "VERSION=$VERSION" >> $GITHUB_ENV
-            echo "VERSION_TIME=$VERSION_TIME" >> $GITHUB_ENV
-
-            echo "LASTEST_TAG=$LASTEST_TAG"
-            echo "RELEASE_INFO=$RELEASE_INFO"
-            echo "REVISION=${{ env.REVISION }}"
-            echo "VERSION=$VERSION"
-            echo "VERSION_TIME=$VERSION_TIME"
-        shell: bash
-        env:
-          LASTEST_TAG: ${{ steps.version_info.outputs.LASTEST_TAG }}
-          VERSION: ${{ steps.version_info.outputs.VERSION }}
-          VERSION_TIME: ${{ steps.version_info.outputs.VERSION_TIME }}
-          RELEASE_INFO: ${{ steps.version_info.outputs.RELEASE_INFO }}
-          REVISION: ${{ steps.version_info.outputs.REVISION }}
+            core.exportVariable("VERSION", VERSION);
 
       - name: Cloudflare Cache purge
         uses: jakejarvis/cloudflare-purge-action@master
@@ -388,18 +315,12 @@ jobs:
       - name: Deployment validate
         uses: actions/github-script@v5
         env:
-          LASTEST_TAG: ${{ steps.version_info.outputs.LASTEST_TAG }}
-          VERSION: ${{ steps.version_info.outputs.VERSION }}
-          VERSION_TIME: ${{ steps.version_info.outputs.VERSION_TIME }}
-          RELEASE_INFO: ${{ steps.version_info.outputs.RELEASE_INFO }}
           REVISION: ${{ steps.version_info.outputs.REVISION }}
+          VERSION: ${{ steps.version_info.outputs.VERSION }}
         with:
           script: |
-            const LASTEST_TAG = process.env.LASTEST_TAG;
-            const RELEASE_INFO = process.env.RELEASE_INFO;
             const REVISION = process.env.REVISION;
             const VERSION = process.env.VERSION;
-            const VERSION_TIME = process.env.VERSION_TIME;
 
             const https = require('https');
             const url = 'https://zuralski.net/release.json';
