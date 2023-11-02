@@ -186,12 +186,13 @@ jobs:
 
       - name: Changelog generate
         id: changelog_generate
-        uses: nblagoev/pull-release-notes-action@v1.0.2
+        uses: johnyherangi/create-release-notes@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          base-ref: ${{ steps.version_info.outputs.LASTEST_TAG }}
-          head-ref: ${{ github.ref }}
+          format: "- {{subject}}"
+#          base-ref: ${{ steps.version_info.outputs.LASTEST_TAG }}
+#          head-ref: ${{ github.ref }}
 
       - name: Release create
         id: release_create
@@ -201,7 +202,7 @@ jobs:
         with:
           tag_name: ${{ env.VERSION }}
           release_name: Release ${{ env.VERSION }} at ${{ env.VERSION_TIME }}
-          body: ${{ steps.changelog_generate.outputs.result }}
+          body: ${{ steps.changelog_generate.outputs.release-notes }}
           draft: false
           prerelease: true
 
@@ -238,6 +239,7 @@ jobs:
           path: ${{ env.JEKYLL_DESTINATION }}
 
       - name: env vars setup
+        id: version_info
         run: |
             echo "REVISION=$REVISION" >> $GITHUB_ENV
             echo "LASTEST_TAG=$LASTEST_TAG" >> $GITHUB_ENV
@@ -319,11 +321,11 @@ jobs:
               console.error(err.message, err);
             });
         env:
-            REVISION: ${{ needs.deploy.outputs.REVISION }}
-            LASTEST_TAG: ${{ needs.deploy.outputs.LASTEST_TAG }}
-            VERSION: ${{ needs.deploy.outputs.VERSION }}
-            VERSION_TIME: ${{ needs.deploy.outputs.VERSION_TIME }}
-            RELEASE_INFO: ${{ needs.deploy.outputs.RELEASE_INFO }}
+          REVISION: ${{ needs.deploy.outputs.REVISION }}
+          LASTEST_TAG: ${{ needs.deploy.outputs.LASTEST_TAG }}
+          VERSION: ${{ needs.deploy.outputs.VERSION }}
+          VERSION_TIME: ${{ needs.deploy.outputs.VERSION_TIME }}
+          RELEASE_INFO: ${{ needs.deploy.outputs.RELEASE_INFO }}
 
 
       - name: Sitemap ping Bing
