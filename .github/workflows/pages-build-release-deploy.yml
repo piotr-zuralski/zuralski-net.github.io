@@ -247,6 +247,7 @@ jobs:
             echo "VERSION_TIME=$VERSION_TIME" >> $GITHUB_ENV
             echo "RELEASE_INFO=$RELEASE_INFO" >> $GITHUB_ENV
 
+            echo "REVISION=$REVISION"
             echo "RELEASE_INFO: ${{ env.RELEASE_INFO }}"
             echo "${{ env.RELEASE_INFO }}" > ./_site/release.json
         shell: bash
