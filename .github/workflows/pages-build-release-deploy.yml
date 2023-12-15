@@ -90,14 +90,14 @@ jobs:
         run: zip -r site.zip ${{ env.JEKYLL_DESTINATION }}
 
       - name: Artifacts production upload ${{ env.JEKYLL_DESTINATION }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dir-site-${{ github.sha }}
           path: ${{ env.JEKYLL_DESTINATION }}
           retention-days: 1
 
       - name: Artifacts production upload site.zip
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: file-site-${{ github.sha }}
           path: ./site.zip
